@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulary Quest Unit 3–4</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Orbitron:wght@500;700;800&display=swap');
+
+:root{
+  --green:#17e866;
+  --green-dark:#08a844;
+  --cyan:#46e6ff;
+  --purple:#9a5cff;
+  --pink:#ff4fc8;
+  --yellow:#ffd166;
+  --red:#ff526f;
+  --dark:#050812;
+  --panel:rgba(13,20,35,.82);
+  --panel-light:rgba(255,255,255,.09);
+  --border:rgba(255,255,255,.17);
+  --muted:#adb7d2;
+  --white:#f5f8ff;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  color:var(--white);
+  font-family:'Kanit',sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%,rgba(40,224,112,.17),transparent 22%),
+    radial-gradient(circle at 87% 10%,rgba(63,86,255,.2),transparent 25%),
+    radial-gradient(circle at 52% 100%,rgba(216,48,255,.14),transparent 28%),
+    var(--dark);
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  opacity:.18;
+  background-image:
+    linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(to bottom,#000,transparent);
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:radial-gradient(circle at center,transparent 30%,rgba(0,0,0,.46));
+}
+
+.orb{
+  width:280px;
+  height:280px;
+  position:fixed;
+  border-radius:50%;
+  filter:blur(20px);
+  opacity:.3;
+  z-index:-1;
+  animation:orbMove 12s ease-in-out infinite alternate;
+}
+
+.orb-a{
+  top:-100px;
+  left:-80px;
+  background:#18db69;
+}
+
+.orb-b{
+  top:38%;
+  right:-120px;
+  background:#3e76ff;
+  animation-delay:-4s;
+}
+
+.orb-c{
+  bottom:-150px;
+  left:36%;
+  background:#d337ed;
+  animation-delay:-8s;
+}
+
+@keyframes orbMove{
+  from{transform:translate(0,0) scale(1)}
+  to{transform:translate(60px,45px) scale(1.23)}
+}
+
+.app{
+  width:min(1180px,94%);
+  margin:auto;
+  padding:22px 0 60px;
+}
+
+.glass{
+  background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.035));
+  border:1px solid var(--border);
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.17),
+    0 20px 70px rgba(0,0,0,.3);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+}
+
+.navbar{
+  height:70px;
+  padding:12px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-radius:21px;
+  margin-bottom:25px;
+  animation:dropIn .7s ease both;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.brand-logo{
+  width:43px;
+  height:43px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  color:#001c0b;
+  font-size:23px;
+  font-weight:bold;
+  background:linear-gradient(135deg,var(--green),var(--cyan));
+  box-shadow:0 0 28px rgba(23,232,102,.5);
+}
+
+.brand-title{
+  font-family:Orbitron,sans-serif;
+  font-size:14px;
+  letter-spacing:1px;
+}
+
+.brand-sub{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.nav-info{
+  display:flex;
+  gap:9px;
+}
+
+.nav-pill{
+  padding:8px 13px;
+  color:var(--muted);
+  border-radius:12px;
+  background:rgba(255,255,255,.07);
+  font-size:12px;
+}
+
+.nav-pill b{
+  color:var(--green);
+}
+
+.screen{
+  display:none;
+}
+
+.screen.active{
+  display:block;
+  animation:pageIn .5s ease both;
+}
+
+@keyframes dropIn{
+  from{opacity:0;transform:translateY(-20px)}
+  to{opacity:1;transform:none}
+}
+
+@keyframes pageIn{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:none}
+}
+
+.hero{
+  min-height:520px;
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  align-items:center;
+  gap:30px;
+  padding:55px;
+  border-radius:32px;
+  overflow:hidden;
+  position:relative;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  width:430px;
+  height:430px;
+  right:-170px;
+  top:-160px;
+  border-radius:50%;
+  border:1px solid rgba(23,232,102,.35);
+  box-shadow:
+    0 0 0 25px rgba(23,232,102,.04),
+    0 0 0 50px rgba(23,232,102,.025);
+  animation:rotate 20s linear infinite;
+}
+
+@keyframes rotate{
+  to{transform:rotate(360deg)}
+}
+
+.hero-small{
+  color:var(--green);
+  font-size:13px;
+  letter-spacing:3px;
+  margin-bottom:14px;
+}
+
+.hero h1{
+  font-family:Orbitron,sans-serif;
+  font-size:clamp(38px,6vw,76px);
+  line-height:1;
+  background:linear-gradient(100deg,#fff,var(--green),var(--cyan),#fff);
+  background-size:250%;
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:gradient 5s linear infinite;
+}
+
+@keyframes gradient{
+  to{background-position:250%}
+}
+
+.hero p{
+  max-width:520px;
+  color:var(--muted);
+  line-height:1.8;
+  margin-top:21px;
+}
+
+.hero-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:27px;
+}
+
+.button{
+  border:0;
+  color:white;
+  cursor:pointer;
+  font-family:inherit;
+  font-weight:600;
+  font-size:15px;
+  padding:13px 21px;
+  border-radius:14px;
+  transition:.25s;
+}
+
+.button:hover{
+  transform:translateY(-4px);
+}
+
+.button-main{
+  background:linear-gradient(135deg,var(--green),#0a9fff);
+  box-shadow:0 12px 30px rgba(23,232,102,.25);
+}
+
+.button-ghost{
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.08);
+}
+
+.floating-card{
+  width:min(310px,90%);
+  margin:auto;
+  padding:24px;
+  border-radius:24px;
+  transform:rotate(5deg);
+  background:linear-gradient(145deg,rgba(255,255,255,.17),rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.2);
+  box-shadow:0 0 50px rgba(23,232,102,.17);
+  animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+  0%,100%{transform:rotate(5deg) translateY(0)}
+  50%{transform:rotate(1deg) translateY(-15px)}
+}
+
+.card-top{
+  display:flex;
+  justify-content:space-between;
+  color:var(--green);
+  font-size:12px;
+}
+
+.card-word{
+  margin-top:28px;
+  font-family:Orbitron,sans-serif;
+  font-size:25px;
+}
+
+.card-meaning{
+  color:var(--muted);
+  margin-top:6px;
+}
+
+.card-progress{
+  height:8px;
+  margin-top:25px;
+  overflow:hidden;
+  border-radius:30px;
+  background:rgba(255,255,255,.1);
+}
+
+.card-progress span{
+  display:block;
+  width:75%;
+  height:100%;
+  border-radius:30px;
+  background:linear-gradient(90deg,var(--green),var(--cyan));
+  animation:progressGlow 2s infinite alternate;
+}
+
+@keyframes progressGlow{
+  to{width:90%;filter:brightness(1.5)}
+}
+
+.section-heading{
+  margin:28px 0 14px;
+  font-size:22px;
+}
+
+.mode-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.mode{
+  padding:23px;
+  border-radius:21px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.mode:hover{
+  transform:translateY(-7px);
+  border-color:var(--green);
+  box-shadow:0 0 30px rgba(23,232,102,.13);
+}
+
+.mode-icon{
+  font-size:34px;
+}
+
+.mode-id{
+  color:var(--green);
+  font-family:Orbitron,sans-serif;
+  font-size:11px;
+  margin-top:13px;
+}
+
+.mode h3{
+  font-size:20px;
+  margin:9px 0 5px;
+}
+
+.mode p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+}
+
+.game-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
+}
+
+.game-label{
+  color:var(--green);
+  font-family:Orbitron,sans-serif;
+  font-size:14px;
+}
+
+.top-buttons{
+  display:flex;
+  gap:8px;
+}
+
+.small-button{
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:8px 12px;
+  color:white;
+  background:rgba(255,255,255,.08);
+  font-family:inherit;
+  cursor:pointer;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+  margin-bottom:14px;
+}
+
+.stat{
+  padding:12px;
+  text-align:center;
+  border-radius:15px;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.stat-number{
+  color:var(--green);
+  font-family:Orbitron,sans-serif;
+  font-size:20px;
+  margin-top:3px;
+}
+
+.progress-track{
+  height:8px;
+  margin-bottom:15px;
+  border-radius:30px;
+  overflow:hidden;
+  background:rgba(255,255,255,.1);
+}
+
+.progress-fill{
+  width:0;
+  height:100%;
+  border-radius:30px;
+  background:linear-gradient(90deg,var(--green),var(--cyan),var(--purple));
+  transition:.5s;
+  box-shadow:0 0 16px var(--green);
+}
+
+/* =====================================================
+   รูปแบบโจทย์ Level 3 ให้ใกล้เคียงภาพตัวอย่าง
+===================================================== */
+
+.quiz-shell{
+  overflow:hidden;
+  border-radius:25px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(7,12,22,.74);
+  box-shadow:0 20px 55px rgba(0,0,0,.35);
+}
+
+.quiz-question{
+  min-height:142px;
+  display:flex;
+  align-items:stretch;
+  background:
+    linear-gradient(110deg,rgba(0,0,0,.91),rgba(20,24,31,.82)),
+    repeating-linear-gradient(
+      135deg,
+      rgba(255,255,255,.025) 0,
+      rgba(255,255,255,.025) 2px,
+      transparent 2px,
+      transparent 8px
+    );
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.question-number{
+  width:88px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#03170a;
+  font-family:Orbitron,sans-serif;
+  font-size:50px;
+  font-weight:800;
+  background:linear-gradient(150deg,#21f069,#0abe4c);
+  position:relative;
+}
+
+.question-number::after{
+  content:"";
+  position:absolute;
+  right:-13px;
+  width:25px;
+  height:25px;
+  background:var(--green-dark);
+  transform:rotate(45deg);
+  z-index:1;
+}
+
+.question-content{
+  flex:1;
+  padding:25px 30px 24px 38px;
+  display:flex;
+  align-items:center;
+}
+
+.question-text{
+  color:#fff;
+  font-size:clamp(21px,3.2vw,31px);
+  font-weight:500;
+  line-height:1.35;
+  text-shadow:0 2px 5px #000;
+}
+
+.question-text .blank{
+  display:inline-block;
+  min-width:150px;
+  margin:0 5px;
+  border-bottom:3px solid var(--green);
+  color:var(--green);
+}
+
+.conversation-tag{
+  display:block;
+  margin-bottom:7px;
+  color:var(--green);
+  font-size:12px;
+  letter-spacing:1px;
+}
+
+.options{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:0;
+  background:rgba(5,11,18,.92);
+}
+
+.option{
+  min-height:98px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  padding:15px 23px;
+  color:white;
+  text-align:left;
+  font-family:inherit;
+  font-size:clamp(16px,2vw,21px);
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,.08);
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+  transition:.25s;
+  position:relative;
+  overflow:hidden;
+}
+
+.option::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,transparent,rgba(23,232,102,.13),transparent);
+  transform:translateX(-100%);
+  transition:.6s;
+}
+
+.option:hover{
+  background:linear-gradient(90deg,rgba(23,232,102,.2),rgba(255,255,255,.04));
+  transform:scale(1.015);
+  z-index:2;
+}
+
+.option:hover::after{
+  transform:translateX(100%);
+}
+
+.option-letter{
+  flex:0 0 48px;
+  width:48px;
+  height:54px;
+  display:grid;
+  place-items:center;
+  color:#06140a;
+  font-family:Orbitron,sans-serif;
+  font-size:24px;
+  font-weight:800;
+  background:linear-gradient(150deg,#20ee6b,#05a83f);
+  clip-path:polygon(0 0,100% 0,84% 100%,0 100%);
+  box-shadow:0 0 17px rgba(23,232,102,.3);
+}
+
+.option.correct{
+  background:rgba(23,232,102,.21);
+  border-color:var(--green);
+  animation:correct .4s;
+}
+
+.option.correct .option-letter{
+  background:linear-gradient(135deg,#fff,var(--green));
+}
+
+.option.wrong{
+  background:rgba(255,82,111,.22);
+  border-color:var(--red);
+  animation:shake .4s;
+}
+
+.option.wrong .option-letter{
+  background:linear-gradient(135deg,#fff,var(--red));
+}
+
+@keyframes correct{
+  50%{transform:scale(1.035)}
+}
+
+@keyframes shake{
+  25%{transform:translateX(-8px)}
+  75%{transform:translateX(8px)}
+}
+
+.quiz-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 18px;
+  background:rgba(255,255,255,.04);
+}
+
+.timer{
+  color:var(--yellow);
+  font-family:Orbitron,sans-serif;
+  font-size:14px;
+}
+
+.timer.danger{
+  color:var(--red);
+  animation:pulse .7s infinite;
+}
+
+@keyframes pulse{
+  50%{transform:scale(1.15)}
+}
+
+.feedback{
+  display:none;
+  margin-top:16px;
+  padding:19px 22px;
+  border-radius:18px;
+  line-height:1.7;
+}
+
+.feedback.show{
+  display:block;
+  animation:pageIn .35s ease;
+}
+
+.feedback.good{
+  background:rgba(23,232,102,.1);
+  border:1px solid rgba(23,232,102,.5);
+}
+
+.feedback.bad{
+  background:rgba(255,82,111,.1);
+  border:1px solid rgba(255,82,111,.5);
+}
+
+.feedback b{
+  color:var(--green);
+}
+
+.next{
+  display:none;
+  margin-top:15px;
+}
+
+.next.show{
+  display:inline-block;
+}
+
+.result{
+  max-width:700px;
+  margin:40px auto;
+  padding:48px 25px;
+  text-align:center;
+  border-radius:28px;
+}
+
+.result-icon{
+  font-size:65px;
+  animation:float 3s infinite;
+}
+
+.result h2{
+  font-family:Orbitron,sans-serif;
+  margin:15px 0 8px;
+}
+
+.final-score{
+  margin-top:20px;
+  color:var(--green);
+  font-family:Orbitron,sans-serif;
+  font-size:52px;
+}
+
+/* Dynamic Island */
+
+.island{
+  position:fixed;
+  z-index:100;
+  top:18px;
+  left:50%;
+  min-width:285px;
+  max-width:90vw;
+  padding:11px 16px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:19px;
+  opacity:0;
+  transform:translate(-50%,-150px) scale(.7);
+  background:linear-gradient(135deg,rgba(255,255,255,.17),rgba(255,255,255,.055));
+  box-shadow:0 15px 45px rgba(0,0,0,.45),0 0 25px rgba(23,232,102,.18);
+  backdrop-filter:blur(22px);
+  transition:.5s cubic-bezier(.2,.9,.2,1);
+}
+
+.island.show{
+  opacity:1;
+  transform:translate(-50%,0) scale(1);
+}
+
+.island-icon{
+  width:35px;
+  height:35px;
+  display:grid;
+  place-items:center;
+  border-radius:11px;
+  background:linear-gradient(135deg,var(--green),var(--cyan));
+}
+
+.island-title{
+  font-size:13px;
+  font-weight:bold;
+}
+
+.island-message{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.spark{
+  position:fixed;
+  width:7px;
+  height:7px;
+  z-index:200;
+  border-radius:50%;
+  pointer-events:none;
+  background:var(--green);
+  box-shadow:0 0 14px var(--green);
+  animation:spark .8s ease-out forwards;
+}
+
+@keyframes spark{
+  to{
+    opacity:0;
+    transform:translate(var(--x),var(--y)) scale(0);
+  }
+}
+
+@media(max-width:800px){
+  .hero{
+    grid-template-columns:1fr;
+    padding:35px 25px;
+  }
+
+  .mode-grid{
+    grid-template-columns:1fr;
+  }
+
+  .options{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:550px){
+  .app{
+    width:95%;
+    padding-top:12px;
+  }
+
+  .navbar{
+    height:auto;
+    padding:11px;
+  }
+
+  .nav-info{
+    display:none;
+  }
+
+  .hero h1{
+    font-size:41px;
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .question-number{
+    width:58px;
+    font-size:31px;
+  }
+
+  .question-content{
+    padding:20px 15px 20px 25px;
+  }
+
+  .question-text{
+    font-size:20px;
+  }
+
+  .option{
+    min-height:78px;
+    padding:12px 15px;
+    gap:13px;
+  }
+
+  .option-letter{
+    flex-basis:40px;
+    width:40px;
+    height:45px;
+    font-size:18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="orb orb-a"></div>
+<div class="orb orb-b"></div>
+<div class="orb orb-c"></div>
+
+<div id="island" class="island">
+  <div id="islandIcon" class="island-icon">⚡</div>
+  <div>
+    <div id="islandTitle" class="island-title">Vocabulary Quest</div>
+    <div id="islandMessage" class="island-message">พร้อมเริ่มภารกิจแล้ว</div>
+  </div>
+</div>
+
+<main class="app">
+
+<nav class="navbar glass">
+  <div class="brand">
+    <div class="brand-logo">⚡</div>
+    <div>
+      <div class="brand-title">VOCABULARY QUEST</div>
+      <div class="brand-sub">UNIT 3–4 • ENGLISH TRAINING GAME</div>
+    </div>
+  </div>
+
+  <div class="nav-info">
+    <div class="nav-pill">🏆 BEST <b id="navBest">0</b></div>
+    <div class="nav-pill">📚 <b>132</b> WORDS</div>
+  </div>
+</nav>
+
+<section id="homeScreen" class="screen active">
+
+  <div class="hero glass">
+    <div>
+      <div class="hero-small">LEVEL UP YOUR ENGLISH</div>
+      <h1>VOCAB<br>QUEST</h1>
+
+      <p>
+        ฝึกคำศัพท์ภาษาอังกฤษ Unit 3–4 ผ่านเกมตอบคำถาม
+        พร้อมโหมด Context Challenge ที่ใช้บทสนทนา
+        และสถานการณ์ใกล้ตัวมากขึ้น
+      </p>
+
+      <div class="hero-buttons">
+        <button class="button button-main" onclick="goToModes()">
+          ▶ เริ่มภารกิจ
+        </button>
+
+        <button class="button button-ghost"
+          onclick="toast('มีคำศัพท์ทั้งหมด 132 คำในเกม','คลังคำศัพท์','📚')">
+          ◈ รายละเอียดเกม
+        </button>
+      </div>
+    </div>
+
+    <div>
+      <div class="floating-card">
+        <div class="card-top">
+          <span>● LIVE TRAINING</span>
+          <span>132</span>
+        </div>
+
+        <div class="card-word">conversation</div>
+        <div class="card-meaning">บทสนทนา</div>
+
+        <div class="card-progress">
+          <span></span>
+        </div>
+
+        <div style="color:var(--muted);font-size:13px;margin-top:16px">
+          Learn vocabulary through real situations.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 id="modesTitle" class="section-heading">เลือกโหมดการฝึก</h2>
+
+  <div class="mode-grid">
+    <div class="mode glass" onclick="startGame(1)">
+      <div class="mode-icon">🧠</div>
+      <div class="mode-id">LEVEL 01</div>
+      <h3>Word → Meaning</h3>
+      <p>ดูคำศัพท์ภาษาอังกฤษ แล้วเลือกคำแปลภาษาไทย</p>
+    </div>
+
+    <div class="mode glass" onclick="startGame(2)">
+      <div class="mode-icon">🎯</div>
+      <div class="mode-id">LEVEL 02</div>
+      <h3>Meaning → Word</h3>
+      <p>ดูคำแปลภาษาไทย แล้วเลือกคำศัพท์ภาษาอังกฤษ</p>
+    </div>
+
+    <div class="mode glass" onclick="startGame(3)">
+      <div class="mode-icon">💬</div>
+      <div class="mode-id">LEVEL 03</div>
+      <h3>Conversation Challenge</h3>
+      <p>เลือกคำศัพท์ให้เหมาะสมกับบทสนทนาและสถานการณ์</p>
+    </div>
+  </div>
+
+</section>
+
+<section id="gameScreen" class="screen">
+
+  <div class="game-top">
+    <div>
+      <div id="gameLabel" class="game-label">LEVEL 03</div>
+      <div id="counter" style="color:var(--muted);font-size:13px">
+        Question 1 / 120
+      </div>
+    </div>
+
+    <div class="top-buttons">
+      <button class="small-button" onclick="goHome()">⌂ หน้าหลัก</button>
+      <button class="small-button" onclick="finishGame()">ออกจากเกม</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat glass">
+      <div class="stat-label">SCORE</div>
+      <div id="score" class="stat-number">0</div>
+    </div>
+
+    <div class="stat glass">
+      <div class="stat-label">COMBO</div>
+      <div id="combo" class="stat-number">0</div>
+    </div>
+
+    <div class="stat glass">
+      <div class="stat-label">CORRECT</div>
+      <div id="correct" class="stat-number">0</div>
+    </div>
+
+    <div class="stat glass">
+      <div class="stat-label">BEST</div>
+      <div id="best" class="stat-number">0</div>
+    </div>
+  </div>
+
+  <div class="progress-track">
+    <div id="progress" class="progress-fill"></div>
+  </div>
+
+  <div class="quiz-shell">
+
+    <div class="quiz-question">
+      <div id="questionNumber" class="question-number">1</div>
+
+      <div class="question-content">
+        <div>
+          <span id="conversationTag" class="conversation-tag">
+            CONVERSATION CHALLENGE
+          </span>
+
+          <div id="questionText" class="question-text">
+            Loading question...
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="options" class="options"></div>
+
+    <div class="quiz-bottom">
+      <div id="timer" class="timer">⏱ 35</div>
+      <div style="color:var(--muted);font-size:12px">
+        เลือกคำตอบที่เหมาะสมที่สุด
+      </div>
+    </div>
+  </div>
+
+  <div id="feedback" class="feedback glass"></div>
+
+  <button id="nextButton" class="button button-main next" onclick="nextQuestion()">
+    ข้อต่อไป →
+  </button>
+
+</section>
+
+<section id="resultScreen" class="screen">
+  <div class="result glass">
+    <div class="result-icon">🏆</div>
+    <h2>MISSION COMPLETE</h2>
+    <div style="color:var(--muted)">
+      คุณจบภารกิจแล้ว
+    </div>
+
+    <div id="finalScore" class="final-score">0</div>
+    <div style="color:var(--muted)">คะแนนรวม</div>
+
+    <div style="margin:24px 0">
+      ตอบถูก
+      <b id="finalCorrect" style="color:var(--green)">0</b>
+      ข้อ จาก
+      <b id="finalTotal" style="color:var(--cyan)">0</b>
+      ข้อ
+    </div>
+
+    <button class="button button-main" onclick="goHome()">
+      กลับหน้าหลัก
+    </button>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* =====================================================
+   VOCABULARY DATA
+===================================================== */
+
+const vocabulary = [
+  ["presentation","การนำเสนอ"],
+  ["script","บทพูด, บทละคร"],
+  ["interview","สัมภาษณ์"],
+  ["content","เนื้อหา"],
+  ["appropriate","เหมาะสม"],
+  ["feature","คุณลักษณะ, จุดเด่น"],
+  ["launch","เปิดตัว"],
+  ["channel","ช่องทาง"],
+  ["inspiration","แรงบันดาลใจ"],
+  ["attractive","น่าดึงดูด"],
+  ["gorgeous","งดงาม"],
+  ["attract","ดึงดูด"],
+  ["attend","เข้าร่วม"],
+  ["organizer","ผู้จัดงาน"],
+  ["appealing","น่าสนใจ"],
+  ["subscriber","ผู้ติดตาม"],
+  ["influencer","ผู้มีอิทธิพลทางความคิด"],
+  ["engage","มีส่วนร่วม"],
+  ["identify","ระบุ"],
+  ["method","วิธีการ"],
+  ["brief","สั้นกระชับ"],
+  ["unique","มีเอกลักษณ์"],
+  ["explore","สำรวจ"],
+  ["contribute","มีส่วนร่วม"],
+  ["humorous","ตลกขบขัน"],
+  ["ordinary","ธรรมดา"],
+  ["progress","ความก้าวหน้า"],
+  ["performance","การแสดง"],
+  ["celebrity","คนดัง"],
+  ["responsible","มีความรับผิดชอบ"],
+  ["particular","เฉพาะเจาะจง"],
+  ["aim","เป้าหมาย"],
+  ["notice","สังเกตเห็น"],
+  ["predict","ทำนาย"],
+  ["efficient","มีประสิทธิภาพ"],
+  ["achieve","บรรลุเป้าหมาย"],
+  ["conclusion","ข้อสรุป"],
+  ["equal","เท่าเทียม"],
+  ["harmful","เป็นอันตราย"],
+  ["satisfy","ทำให้พึงพอใจ"],
+  ["consider","พิจารณา"],
+  ["producer","ผู้ผลิต"],
+  ["participate","เข้าร่วม"],
+  ["essential","จำเป็น"],
+  ["journalist","นักข่าว"],
+  ["youth","เยาวชน"],
+  ["strength","ความแข็งแกร่ง"],
+  ["proposal","ข้อเสนอ"],
+  ["celebration","การเฉลิมฉลอง"],
+  ["growth","การเติบโต"],
+  ["excitement","ความตื่นเต้น"],
+  ["disaster","ภัยพิบัติ"],
+  ["coast","ชายฝั่ง"],
+  ["preservation","การอนุรักษ์"],
+  ["impact","ผลกระทบ"],
+  ["unspoiled","บริสุทธิ์"],
+  ["decay","เสื่อมโทรม"],
+  ["emphasize","เน้นย้ำ"],
+  ["establish","ก่อตั้ง"],
+  ["rise","เพิ่มขึ้น"],
+  ["substance","สาระ"],
+  ["awareness","ความตระหนักรู้"],
+  ["reaction","ปฏิกิริยา"],
+  ["bother","รบกวน"],
+  ["prediction","การทำนาย"],
+  ["analyze","วิเคราะห์"],
+  ["rancid","เหม็นหืน"],
+  ["asteroid","ดาวเคราะห์น้อย"],
+  ["involve","เกี่ยวข้อง"],
+  ["sustainable","ยั่งยืน"],
+  ["collaborate","ร่วมมือ"],
+  ["sensation","ความรู้สึก"],
+  ["deserve","สมควรได้รับ"],
+  ["involvement","การมีส่วนร่วม"],
+  ["warmth","ความอบอุ่น"],
+  ["instruction","คำแนะนำ"],
+  ["achievement","ความสำเร็จ"],
+  ["necessity","ความจำเป็น"],
+  ["description","คำอธิบาย"],
+  ["doubt","ความสงสัย"],
+  ["boredom","ความเบื่อหน่าย"],
+  ["participation","การเข้าร่วม"],
+  ["invade","บุกรุก"],
+  ["satisfaction","ความพึงพอใจ"],
+  ["avalanche","หิมะถล่ม"],
+  ["firmly","อย่างมั่นคง"],
+  ["stardom","ความเป็นดาว"],
+  ["volcanic","เกี่ยวกับภูเขาไฟ"],
+  ["eruption","การปะทุ"],
+  ["cliff","หน้าผา"],
+  ["wildfire","ไฟป่า"],
+  ["incredible","เหลือเชื่อ"],
+  ["attraction","สถานที่ท่องเที่ยว"],
+  ["riverbank","ฝั่งแม่น้ำ"],
+  ["distance","ระยะทาง"],
+  ["occasion","โอกาส"],
+  ["spray","ละอองน้ำ"],
+  ["harbor","ท่าเรือ"],
+  ["drought","ภัยแล้ง"],
+  ["shore","ชายฝั่ง"],
+  ["extinction","การสูญพันธุ์"],
+  ["obligation","หน้าที่"],
+  ["coral","ปะการัง"],
+  ["heatwave","คลื่นความร้อน"],
+  ["geographical","ทางภูมิศาสตร์"],
+  ["raft","แพ"],
+  ["prohibition","ข้อห้าม"],
+  ["reef","แนวปะการัง"],
+  ["countryside","ชนบท"],
+  ["worthwhile","คุ้มค่า"],
+  ["spectacular","น่าตื่นตาตื่นใจ"],
+  ["escape","หลบหนี"],
+  ["rescue","ช่วยชีวิต"],
+  ["permit","อนุญาต"],
+  ["increase","เพิ่มขึ้น"],
+  ["picturesque","สวยงามเหมือนภาพวาด"],
+  ["demand","ความต้องการ"],
+  ["decrease","ลดลง"],
+  ["suspect","สงสัย"]
+].map((item,index)=>({
+  id:index+1,
+  word:item[0],
+  meaning:item[1]
+}));
+
+/* =====================================================
+   CONVERSATION QUESTION BANK
+===================================================== */
+
+const conversationQuestions = [
+  {
+    dialogue:`A: What are you doing this evening?<br>
+    B: I’m going to give a short __________ about our school project.`,
+    answer:"presentation",
+    meaning:"การนำเสนอ",
+    options:["presentation","drought","harbor","coral"]
+  },
+  {
+    dialogue:`A: Did you watch the new movie last night?<br>
+    B: Yes. The actors gave an amazing __________.`,
+    answer:"performance",
+    meaning:"การแสดง",
+    options:["performance","distance","shore","obligation"]
+  },
+  {
+    dialogue:`A: Why is everyone talking about that singer?<br>
+    B: She is a famous __________ with millions of fans.`,
+    answer:"celebrity",
+    meaning:"คนดัง",
+    options:["celebrity","journalist","organizer","producer"]
+  },
+  {
+    dialogue:`A: What do you think about this advertisement?<br>
+    B: It is colorful and very __________ to young people.`,
+    answer:"appealing",
+    meaning:"น่าสนใจ, ดึงดูดใจ",
+    options:["appealing","harmful","ordinary","rancid"]
+  },
+  {
+    dialogue:`A: Why did you join the environmental club?<br>
+    B: I want to __________ in activities that protect nature.`,
+    answer:"participate",
+    meaning:"เข้าร่วม",
+    options:["participate","predict","decay","invade"]
+  },
+  {
+    dialogue:`A: Can you tell me what this word means?<br>
+    B: The teacher asked us to use the dictionary to __________ it.`,
+    answer:"identify",
+    meaning:"ระบุ, ชี้ให้เห็น",
+    options:["identify","launch","escape","satisfy"]
+  },
+  {
+    dialogue:`A: How was your trip to the island?<br>
+    B: The view was absolutely __________.`,
+    answer:"spectacular",
+    meaning:"น่าตื่นตาตื่นใจ",
+    options:["spectacular","ordinary","brief","harmful"]
+  },
+  {
+    dialogue:`A: Why can’t the farmers grow rice this year?<br>
+    B: There has been a long __________ with almost no rain.`,
+    answer:"drought",
+    meaning:"ภัยแล้ง",
+    options:["drought","avalanche","heatwave","eruption"]
+  },
+  {
+    dialogue:`A: Where can we leave the boat?<br>
+    B: There is a safe __________ near the village.`,
+    answer:"harbor",
+    meaning:"ท่าเรือ",
+    options:["harbor","cliff","riverbank","countryside"]
+  },
+  {
+    dialogue:`A: What happened to the forest?<br>
+    B: A huge __________ destroyed many trees.`,
+    answer:"wildfire",
+    meaning:"ไฟป่า",
+    options:["wildfire","coral","shore","asteroid"]
+  },
+  {
+    dialogue:`A: Why should we reduce plastic use?<br>
+    B: Plastic can be very __________ to animals and the environment.`,
+    answer:"harmful",
+    meaning:"เป็นอันตราย",
+    options:["harmful","attractive","worthwhile","equal"]
+  },
+  {
+    dialogue:`A: What is your goal for this semester?<br>
+    B: My main __________ is to improve my English score.`,
+    answer:"aim",
+    meaning:"เป้าหมาย",
+    options:["aim","reaction","content","spray"]
+  },
+  {
+    dialogue:`A: Why are you exercising every morning?<br>
+    B: I want to improve my physical __________.`,
+    answer:"strength",
+    meaning:"ความแข็งแกร่ง",
+    options:["strength","boredom","distance","growth"]
+  },
+  {
+    dialogue:`A: What did the scientist say about tomorrow’s weather?<br>
+    B: She tried to __________ heavy rain.`,
+    answer:"predict",
+    meaning:"ทำนาย",
+    options:["predict","attend","consider","contribute"]
+  },
+  {
+    dialogue:`A: Should we choose this plan?<br>
+    B: Let’s __________ all the details before deciding.`,
+    answer:"consider",
+    meaning:"พิจารณา",
+    options:["consider","attract","rescue","decrease"]
+  },
+  {
+    dialogue:`A: Why is clean water important?<br>
+    B: It is __________ for every living thing.`,
+    answer:"essential",
+    meaning:"จำเป็นอย่างยิ่ง",
+    options:["essential","humorous","particular","ordinary"]
+  },
+  {
+    dialogue:`A: Did the firefighters arrive in time?<br>
+    B: Yes. They came to __________ the people inside the building.`,
+    answer:"rescue",
+    meaning:"ช่วยชีวิต",
+    options:["rescue","launch","notice","involve"]
+  },
+  {
+    dialogue:`A: What do you think of the new school project?<br>
+    B: I think it is __________ because students can learn from nature.`,
+    answer:"worthwhile",
+    meaning:"คุ้มค่า",
+    options:["worthwhile","rancid","harmful","volcanic"]
+  },
+  {
+    dialogue:`A: Why are people visiting this place?<br>
+    B: The waterfall is a popular tourist __________.`,
+    answer:"attraction",
+    meaning:"สถานที่ท่องเที่ยว, สิ่งดึงดูดใจ",
+    options:["attraction","substance","prediction","obligation"]
+  },
+  {
+    dialogue:`A: How can we protect the sea?<br>
+    B: We should help with coral reef __________.`,
+    answer:"preservation",
+    meaning:"การอนุรักษ์",
+    options:["preservation","eruption","invasion","decay"]
+  },
+  {
+    dialogue:`A: What is the new campaign about?<br>
+    B: It aims to raise public __________ about climate change.`,
+    answer:"awareness",
+    meaning:"ความตระหนักรู้",
+    options:["awareness","distance","boredom","stardom"]
+  },
+  {
+    dialogue:`A: Why did the company change its plan?<br>
+    B: The manager wanted to make the process more __________.`,
+    answer:"efficient",
+    meaning:"มีประสิทธิภาพ",
+    options:["efficient","gorgeous","rancid","unspoiled"]
+  },
+  {
+    dialogue:`A: What happened during the volcano trip?<br>
+    B: We saw a volcanic __________ from a safe distance.`,
+    answer:"eruption",
+    meaning:"การปะทุ",
+    options:["eruption","proposal","celebration","participation"]
+  },
+  {
+    dialogue:`A: Do you like the design of this website?<br>
+    B: Yes. It is modern and very __________.`,
+    answer:"attractive",
+    meaning:"น่าดึงดูด",
+    options:["attractive","harmful","equal","brief"]
+  },
+  {
+    dialogue:`A: Why did the students meet after class?<br>
+    B: They wanted to discuss a new project __________.`,
+    answer:"proposal",
+    meaning:"ข้อเสนอ",
+    options:["proposal","cliff","shore","drought"]
+  }
+];
+
+/* =====================================================
+   GAME STATE
+===================================================== */
+
+let level=1;
+let questions=[];
+let current=0;
+let score=0;
+let combo=0;
+let correct=0;
+let timer=null;
+let timeLeft=20;
+let answered=false;
+
+let bestScore=Number(localStorage.getItem("vocabQuestBest")||0);
+document.getElementById("navBest").textContent=bestScore;
+
+const $=id=>document.getElementById(id);
+
+function shuffle(array){
+  return [...array].sort(()=>Math.random()-.5);
+}
+
+function escapeHTML(value){
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function showScreen(id){
+  document.querySelectorAll(".screen").forEach(screen=>{
+    screen.classList.remove("active");
+  });
+
+  $(id).classList.add("active");
+}
+
+function goToModes(){
+  document.getElementById("modesTitle").scrollIntoView({
+    behavior:"smooth"
+  });
+
+  toast("เลือก Level ที่ต้องการเริ่มได้เลย","พร้อมเริ่มภารกิจ","🚀");
+}
+
+function goHome(){
+  clearInterval(timer);
+  showScreen("homeScreen");
+  window.scrollTo({top:0,behavior:"smooth"});
+  toast("กลับสู่หน้าหลักแล้ว","Vocabulary Quest","⌂");
+}
+
+function toast(message,title="แจ้งเตือน",icon="⚡"){
+  $("islandTitle").textContent=title;
+  $("islandMessage").textContent=message;
+  $("islandIcon").textContent=icon;
+
+  $("island").classList.remove("show");
+  void $("island").offsetWidth;
+  $("island").classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer=setTimeout(()=>{
+    $("island").classList.remove("show");
+  },3200);
+}
+
+function startGame(selectedLevel){
+  level=selectedLevel;
+  current=0;
+  score=0;
+  combo=0;
+  correct=0;
+  answered=false;
+
+  if(level===3){
+    /*
+      สร้าง 120 ข้อจากบทสนทนา
+      โดยสลับลำดับและเปลี่ยนตัวเลือกทุกครั้ง
+    */
+    questions=[];
+
+    while(questions.length<120){
+      shuffle(conversationQuestions).forEach(question=>{
+        if(questions.length<120){
+          questions.push({
+            ...question,
+            options:shuffle(question.options)
+          });
+        }
+      });
+    }
+  }else{
+    questions=shuffle(vocabulary);
+  }
+
+  $("gameLabel").textContent=
+    level===1 ? "LEVEL 01 • WORD → MEANING":
+    level===2 ? "LEVEL 02 • MEANING → WORD":
+    "LEVEL 03 • CONVERSATION CHALLENGE";
+
+  showScreen("gameScreen");
+  renderQuestion();
+
+  toast(
+    level===3
+      ?"เติมคำจากบทสนทนาให้ถูกต้อง"
+      :"เลือกคำตอบที่ถูกต้อง",
+    `เริ่ม Level ${level}`,
+    "⚡"
+  );
+}
+
+function renderQuestion(){
+  clearInterval(timer);
+  answered=false;
+
+  const item=questions[current];
+  const total=level===3?120:questions.length;
+
+  $("questionNumber").textContent=current+1;
+  $("counter").textContent=`Question ${current+1} / ${total}`;
+  $("progress").style.width=`${((current+1)/total)*100}%`;
+
+  $("score").textContent=score;
+  $("combo").textContent=combo;
+  $("correct").textContent=correct;
+  $("best").textContent=bestScore;
+
+  $("feedback").className="feedback glass";
+  $("feedback").innerHTML="";
+  $("nextButton").classList.remove("show");
+
+  if(level===3){
+    renderConversationQuestion(item);
+    startTimer(35);
+  }else{
+    renderNormalQuestion(item);
+    startTimer(20);
+  }
+}
+
+function renderConversationQuestion(item){
+  $("conversationTag").textContent="CONVERSATION CHALLENGE";
+
+  let dialogue=item.dialogue.replace(
+    "__________",
+    `<span class="blank">__________</span>`
+  );
+
+  $("questionText").innerHTML=dialogue;
+
+  $("options").innerHTML=item.options.map((option,index)=>`
+    <button class="option" data-answer="${escapeHTML(option)}">
+      <span class="option-letter">${String.fromCharCode(65+index)}</span>
+      <span>${escapeHTML(option)}</span>
+    </button>
+  `).join("");
+
+  addOptionEvents(item,item.answer);
+}
+
+function renderNormalQuestion(item){
+  const correctAnswer=level===1?item.meaning:item.word;
+
+  $("conversationTag").textContent=
+    level===1?"WORD MEANING":"MEANING TO WORD";
+
+  $("questionText").textContent=
+    level===1?item.word:item.meaning;
+
+  let choices;
+
+  if(level===1){
+    const wrong=shuffle(
+      vocabulary
+        .filter(word=>word.word!==item.word)
+        .map(word=>word.meaning)
+    ).slice(0,3);
+
+    choices=shuffle([item.meaning,...wrong]);
+  }else{
+    const wrong=shuffle(
+      vocabulary
+        .filter(word=>word.word!==item.word)
+        .map(word=>word.word)
+    ).slice(0,3);
+
+    choices=shuffle([item.word,...wrong]);
+  }
+
+  $("options").innerHTML=choices.map((option,index)=>`
+    <button class="option" data-answer="${escapeHTML(option)}">
+      <span class="option-letter">${String.fromCharCode(65+index)}</span>
+      <span>${escapeHTML(option)}</span>
+    </button>
+  `).join("");
+
+  addOptionEvents(item,correctAnswer);
+}
+
+function addOptionEvents(item,correctAnswer){
+  document.querySelectorAll(".option").forEach(button=>{
+    button.addEventListener("click",()=>{
+      checkAnswer(button,button.dataset.answer,correctAnswer,item);
+    });
+  });
+}
+
+function startTimer(seconds){
+  timeLeft=seconds;
+  updateTimer();
+
+  timer=setInterval(()=>{
+    timeLeft--;
+    updateTimer();
+
+    if(timeLeft<=0){
+      clearInterval(timer);
+
+      if(!answered){
+        checkAnswer(null,"",questions[current].answer||questions[current].word,questions[current],true);
+      }
+    }
+  },1000);
+}
+
+function updateTimer(){
+  $("timer").textContent=`⏱ ${timeLeft}`;
+  $("timer").classList.toggle("danger",timeLeft<=5);
+}
+
+function checkAnswer(button,answer,correctAnswer,item,isTimeout=false){
+  if(answered)return;
+
+  answered=true;
+  clearInterval(timer);
+
+  const isCorrect=answer===correctAnswer;
+
+  document.querySelectorAll(".option").forEach(option=>{
+    option.disabled=true;
+
+    if(option.dataset.answer===correctAnswer){
+      option.classList.add("correct");
+    }
+
+    if(option===button && !isCorrect){
+      option.classList.add("wrong");
+    }
+  });
+
+  if(isCorrect){
+    combo++;
+    correct++;
+
+    const earned=100+(combo*15)+(timeLeft*3);
+    score+=earned;
+
+    $("feedback").className="feedback good show";
+    $("feedback").innerHTML=`
+      ✅ <b>ตอบถูกต้อง!</b>
+      <br>
+      ได้รับ ${earned} คะแนน
+      <br>
+      <span style="color:var(--muted)">
+        คำศัพท์: ${escapeHTML(item.answer||item.word)}
+        ${item.meaning?` — ${escapeHTML(item.meaning)}`:""}
+      </span>
+    `;
+
+    toast(`+${earned} คะแนน • Combo x${combo}`,"ตอบถูกต้อง","🔥");
+    createSparks(button||$("questionText"));
+  }else{
+    combo=0;
+
+    const answerText=correctAnswer||item.word;
+
+    $("feedback").className="feedback bad show";
+    $("feedback").innerHTML=`
+      ${isTimeout?"⌛":"❌"} <b>${isTimeout?"หมดเวลา":"ยังไม่ถูกต้อง"}</b>
+      <br>
+      คำตอบที่ถูกต้องคือ:
+      <span style="color:var(--green)">${escapeHTML(answerText)}</span>
+      <br>
+      <span style="color:var(--muted)">
+        ความหมาย: ${escapeHTML(item.meaning||"")}
+      </span>
+    `;
+
+    toast(`คำตอบคือ ${answerText}`,"ลองใหม่อีกครั้ง","💡");
+  }
+
+  $("score").textContent=score;
+  $("combo").textContent=combo;
+  $("correct").textContent=correct;
+  $("nextButton").classList.add("show");
+}
+
+function nextQuestion(){
+  current++;
+
+  if(level===3 && current>=120){
+    finishGame();
+    return;
+  }
+
+  if(level!==3 && current>=questions.length){
+    current=0;
+    questions=shuffle(vocabulary);
+  }
+
+  renderQuestion();
+}
+
+function finishGame(){
+  clearInterval(timer);
+
+  if(score>bestScore){
+    bestScore=score;
+    localStorage.setItem("vocabQuestBest",bestScore);
+    $("navBest").textContent=bestScore;
+    toast("คุณสร้างสถิติใหม่แล้ว","NEW HIGH SCORE","🏆");
+  }
+
+  $("finalScore").textContent=score;
+  $("finalCorrect").textContent=correct;
+  $("finalTotal").textContent=level===3?120:current+1;
+
+  showScreen("resultScreen");
+}
+
+function createSparks(element){
+  const rect=element.getBoundingClientRect();
+
+  for(let i=0;i<14;i++){
+    const spark=document.createElement("span");
+    spark.className="spark";
+
+    spark.style.left=`${rect.left+rect.width/2}px`;
+    spark.style.top=`${rect.top+rect.height/2}px`;
+    spark.style.setProperty("--x",`${(Math.random()-.5)*190}px`);
+    spark.style.setProperty("--y",`${(Math.random()-.5)*150}px`);
+
+    document.body.appendChild(spark);
+
+    setTimeout(()=>spark.remove(),850);
+  }
+}
+
+document.addEventListener("keydown",event=>{
+  if(!$("gameScreen").classList.contains("active"))return;
+
+  if(event.key>="1"&&event.key<="4"){
+    const index=Number(event.key)-1;
+    const options=document.querySelectorAll(".option");
+
+    if(options[index]&&!answered){
+      options[index].click();
+    }
+  }
+
+  if(event.key==="Enter"&&$("nextButton").classList.contains("show")){
+    nextQuestion();
+  }
+});
+
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    toast("บทสนทนา 120 ข้อพร้อมให้คุณฝึกแล้ว","ยินดีต้อนรับ","⚡");
+  },700);
+});
+</script>
+
+</body>
+</html>
