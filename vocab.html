@@ -353,7 +353,7 @@ body::after{
 
 .mode-grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
   gap:15px;
 }
 
@@ -879,6 +879,7 @@ body::after{
   <div class="nav-info">
     <div class="nav-pill">🏆 BEST <b id="navBest">0</b></div>
     <div class="nav-pill">📚 <b>132</b> WORDS</div>
+    <div class="nav-pill">📝 <b>180</b> GRAMMAR</div>
   </div>
 </nav>
 
@@ -892,7 +893,8 @@ body::after{
       <p>
         ฝึกคำศัพท์ภาษาอังกฤษ Unit 3–4 ผ่านเกมตอบคำถาม
         พร้อมโหมด Context Challenge ที่ใช้บทสนทนา
-        และสถานการณ์ใกล้ตัวมากขึ้น
+        และสถานการณ์ใกล้ตัวมากขึ้น รวมถึงโหมดฝึก Grammar
+        Conditional Sentences และ Relative Clause แบบจัดเต็ม
       </p>
 
       <div class="hero-buttons">
@@ -901,7 +903,7 @@ body::after{
         </button>
 
         <button class="button button-ghost"
-          onclick="toast('มีคำศัพท์ทั้งหมด 132 คำในเกม','คลังคำศัพท์','📚')">
+          onclick="toast('คำศัพท์ 132 คำ • บทสนทนา 120 ข้อ • Grammar (Conditional + Relative Clause) 180 ข้อ','คลังคำศัพท์และไวยากรณ์','📚')">
           ◈ รายละเอียดเกม
         </button>
       </div>
@@ -950,6 +952,20 @@ body::after{
       <div class="mode-id">LEVEL 03</div>
       <h3>Conversation Challenge</h3>
       <p>เลือกคำศัพท์ให้เหมาะสมกับบทสนทนาและสถานการณ์</p>
+    </div>
+
+    <div class="mode glass" onclick="startGame(4)">
+      <div class="mode-icon">🌩️</div>
+      <div class="mode-id">LEVEL 04</div>
+      <h3>Conditional Sentences</h3>
+      <p>ฝึก If-Clause ทุก Type ด้วยโจทย์ยากระดับสนามสอบ 90 ข้อ</p>
+    </div>
+
+    <div class="mode glass" onclick="startGame(5)">
+      <div class="mode-icon">🔗</div>
+      <div class="mode-id">LEVEL 05</div>
+      <h3>Relative Clause</h3>
+      <p>ฝึก Relative Pronouns &amp; Adverbs โจทย์ยาก 90 ข้อ</p>
     </div>
   </div>
 
@@ -1374,6 +1390,200 @@ const conversationQuestions = [
 ];
 
 /* =====================================================
+   CONDITIONAL SENTENCES QUESTION BANK
+===================================================== */
+
+const conditionalQuestions = [
+  {dialogue:"If she __________ harder for the entrance exam last year, she would be studying at her dream university now.",answer:"had studied",meaning:"ถ้าเธอตั้งใจเรียนหนักกว่านี้เพื่อสอบเข้ามหาวิทยาลัยเมื่อปีที่แล้ว ตอนนี้เธอคงกำลังเรียนอยู่ที่มหาวิทยาลัยในฝันแล้ว",options:["studied", "had studied", "studies", "would study"]},
+  {dialogue:"Unless the factory __________ its waste treatment system, the local river will remain heavily polluted.",answer:"upgrades",meaning:"ถ้าโรงงานไม่ปรับปรุงระบบบำบัดของเสีย แม่น้ำในท้องถิ่นก็จะยังคงปนเปื้อนอย่างหนักต่อไป",options:["upgrades", "upgraded", "will upgrade", "had upgraded"]},
+  {dialogue:"__________ the CEO have approved the merger, thousands of employees would have lost their jobs.",answer:"Had",meaning:"ถ้าซีอีโออนุมัติการควบรวมกิจการ พนักงานหลายพันคนคงจะตกงาน",options:["Should", "Were", "Had", "If"]},
+  {dialogue:"If I __________ you, I would apologize to her before it's too late.",answer:"were",meaning:"ถ้าฉันเป็นเธอ ฉันจะขอโทษเธอก่อนที่จะสายเกินไป",options:["am", "were", "had been", "will be"]},
+  {dialogue:"The negotiations might have succeeded __________ both sides had been willing to compromise.",answer:"if",meaning:"การเจรจาอาจจะประสบความสำเร็จ ถ้าทั้งสองฝ่ายเต็มใจที่จะประนีประนอมกัน",options:["unless", "if", "provided", "otherwise"]},
+  {dialogue:"You can join the expedition __________ you sign the liability waiver beforehand.",answer:"as long as",meaning:"คุณสามารถเข้าร่วมการสำรวจได้ ตราบใดที่คุณเซ็นเอกสารสละสิทธิ์เรียกร้องค่าเสียหายล่วงหน้า",options:["unless", "even if", "as long as", "suppose"]},
+  {dialogue:"If the volcano __________ erupt again, thousands of residents would need to be evacuated immediately.",answer:"were to",meaning:"ถ้าภูเขาไฟปะทุขึ้นอีกครั้ง ชาวบ้านหลายพันคนจะต้องถูกอพยพในทันที",options:["will", "were to", "had", "has"]},
+  {dialogue:"__________ more careful during the surgery, the doctor could have avoided the complication.",answer:"Had he been",meaning:"ถ้าหมอระมัดระวังมากกว่านี้ระหว่างการผ่าตัด เขาก็คงจะหลีกเลี่ยงภาวะแทรกซ้อนนั้นได้",options:["Was he", "Were he", "Had he been", "Should he be"]},
+  {dialogue:"If he hadn't lied to the investors, the company __________ bankrupt today.",answer:"wouldn't be",meaning:"ถ้าเขาไม่ได้โกหกนักลงทุน ตอนนี้บริษัทก็คงจะไม่ล้มละลาย",options:["wouldn't go", "wouldn't have gone", "wouldn't be", "isn't"]},
+  {dialogue:"Assuming the flight __________ delayed, we would miss our connecting train.",answer:"were",meaning:"สมมติว่าเที่ยวบินล่าช้า เราก็จะพลาดรถไฟต่อเที่ยวถัดไป",options:["is", "were", "had been", "will be"]},
+  {dialogue:"The old bridge would have collapsed __________ the engineers had reinforced it in time.",answer:"unless",meaning:"สะพานเก่าคงจะพังลงมาแล้ว ถ้าวิศวกรไม่ได้เสริมความแข็งแรงให้ทันเวลา",options:["if", "unless", "even if", "otherwise"]},
+  {dialogue:"If the athlete __________ so recklessly, he wouldn't have torn his ligament during the final match.",answer:"hadn't trained",meaning:"ถ้านักกีฬาคนนั้นไม่ได้ฝึกซ้อมอย่างหักโหมเกินไป เขาก็คงจะไม่เอ็นขาดในการแข่งขันรอบชิงชนะเลิศ",options:["didn't train", "hadn't trained", "doesn't train", "wouldn't train"]},
+  {dialogue:"__________ the committee reject the proposal, the whole project will be cancelled.",answer:"Should",meaning:"ถ้าคณะกรรมการปฏิเสธข้อเสนอนี้ โครงการทั้งหมดก็จะถูกยกเลิก",options:["Should", "Were", "Had", "If"]},
+  {dialogue:"If the ancient manuscript __________ preserved properly, historians would understand much more about that era now.",answer:"had been",meaning:"ถ้าต้นฉบับโบราณนั้นได้รับการอนุรักษ์อย่างเหมาะสม นักประวัติศาสตร์ก็คงจะเข้าใจยุคนั้นมากขึ้นในตอนนี้",options:["is", "were", "had been", "has been"]},
+  {dialogue:"Please water the plants regularly; __________ they will wither within a week.",answer:"or else",meaning:"กรุณารดน้ำต้นไม้เป็นประจำ ไม่เช่นนั้นมันจะเหี่ยวเฉาภายในหนึ่งสัปดาห์",options:["or else", "unless", "provided", "as long as"]},
+  {dialogue:"If the pilot __________ the storm warning, the plane wouldn't have been forced to make an emergency landing.",answer:"had heeded",meaning:"ถ้านักบินฟังคำเตือนเรื่องพายุ เครื่องบินก็คงจะไม่ต้องลงจอดฉุกเฉิน",options:["heeded", "had heeded", "heeds", "would heed"]},
+  {dialogue:"Supposing you __________ a chance to relive one day, which day would you choose?",answer:"had",meaning:"สมมติว่าคุณมีโอกาสได้ย้อนกลับไปใช้ชีวิตวันใดวันหนึ่งอีกครั้ง คุณจะเลือกวันไหน",options:["have", "had", "will have", "had had"]},
+  {dialogue:"If scientists __________ a cure earlier, countless lives could have been saved during the outbreak.",answer:"had discovered",meaning:"ถ้านักวิทยาศาสตร์ค้นพบวิธีรักษาได้เร็วกว่านี้ ชีวิตผู้คนนับไม่ถ้วนก็คงจะได้รับการช่วยเหลือในช่วงที่โรคระบาด",options:["discovered", "had discovered", "discover", "would discover"]},
+  {dialogue:"__________ the shareholders vote against the merger, the board will have to reconsider its strategy.",answer:"Should",meaning:"ถ้าผู้ถือหุ้นลงคะแนนคัดค้านการควบรวมกิจการ คณะกรรมการจะต้องทบทวนกลยุทธ์ใหม่",options:["Had", "Were", "Should", "If"]},
+  {dialogue:"If the archaeologists __________ more time, they might have uncovered the entire ancient city.",answer:"had had",meaning:"ถ้านักโบราณคดีมีเวลามากกว่านี้ พวกเขาก็อาจจะขุดค้นพบเมืองโบราณทั้งเมืองได้",options:["had", "have", "had had", "would have"]},
+  {dialogue:"On condition that all passengers __________ their seatbelts, the flight will be allowed to take off.",answer:"fasten",meaning:"โดยมีเงื่อนไขว่าผู้โดยสารทุกคนต้องคาดเข็มขัดนิรภัย เที่ยวบินจึงจะได้รับอนุญาตให้บินขึ้น",options:["fasten", "fastened", "had fastened", "will fasten"]},
+  {dialogue:"If the treaty __________ signed decades ago, the border conflict might not exist today.",answer:"had been",meaning:"ถ้าสนธิสัญญาได้รับการลงนามเมื่อหลายสิบปีก่อน ความขัดแย้งเรื่องพรมแดนก็อาจจะไม่มีอยู่ในปัจจุบัน",options:["was", "were", "had been", "is"]},
+  {dialogue:"__________ I in your position, I would think twice before resigning.",answer:"Were",meaning:"ถ้าฉันอยู่ในตำแหน่งของคุณ ฉันจะคิดให้รอบคอบก่อนที่จะลาออก",options:["Am", "Were", "Had", "Should"]},
+  {dialogue:"The museum's rare exhibits would have been ruined __________ the fire hadn't been contained quickly.",answer:"unless",meaning:"สิ่งของจัดแสดงหายากของพิพิธภัณฑ์คงจะถูกทำลายไปแล้ว ถ้าไฟไม่ได้ถูกควบคุมไว้ได้อย่างรวดเร็ว",options:["if", "unless", "even if", "provided"]},
+  {dialogue:"If the diplomat __________ more tactful during the summit, relations between the two countries might not have deteriorated.",answer:"had been",meaning:"ถ้านักการทูตมีไหวพริบมากกว่านี้ระหว่างการประชุมสุดยอด ความสัมพันธ์ระหว่างสองประเทศก็อาจจะไม่เสื่อมถอยลง",options:["was", "were", "had been", "is"]},
+  {dialogue:"I wouldn't invest in that startup __________ they showed me solid financial projections.",answer:"unless",meaning:"ฉันจะไม่ลงทุนในสตาร์ทอัพนั้น เว้นแต่พวกเขาจะแสดงประมาณการทางการเงินที่มั่นคงให้ฉันเห็น",options:["unless", "if", "even if", "suppose"]},
+  {dialogue:"__________ properly trained, rescue dogs may fail to locate survivors buried under rubble.",answer:"Unless",meaning:"หากไม่ได้รับการฝึกฝนอย่างเหมาะสม สุนัขกู้ภัยอาจไม่สามารถค้นหาผู้รอดชีวิตที่ติดอยู่ใต้ซากปรักหักพังได้",options:["Unless", "If", "Provided", "Otherwise"]},
+  {dialogue:"If the researchers __________ their data more carefully, they wouldn't have published such a flawed report.",answer:"had checked",meaning:"ถ้านักวิจัยตรวจสอบข้อมูลของตนอย่างละเอียดกว่านี้ พวกเขาก็คงจะไม่ได้ตีพิมพ์รายงานที่มีข้อบกพร่องเช่นนี้",options:["checked", "had checked", "check", "would check"]},
+  {dialogue:"__________ the vaccine arrive in time, the outbreak could be brought under control within weeks.",answer:"Should",meaning:"ถ้าวัคซีนมาถึงทันเวลา การระบาดก็อาจจะถูกควบคุมได้ภายในไม่กี่สัปดาห์",options:["Should", "Were", "Had", "Does"]},
+  {dialogue:"If I __________ my passport at home, I wouldn't have missed my flight to Tokyo last week.",answer:"hadn't left",meaning:"ถ้าฉันไม่ได้ลืมพาสปอร์ตไว้ที่บ้าน ฉันก็คงจะไม่พลาดเที่ยวบินไปโตเกียวเมื่อสัปดาห์ที่แล้ว",options:["didn't leave", "hadn't left", "don't leave", "haven't left"]},
+  {dialogue:"If the company __________ its prices, customers would switch to competitors immediately.",answer:"raised",meaning:"ถ้าบริษัทขึ้นราคาสินค้า ลูกค้าก็จะเปลี่ยนไปใช้คู่แข่งทันที",options:["raises", "raised", "had raised", "will raise"]},
+  {dialogue:"__________ the results been announced earlier, the candidates could have prepared their appeals sooner.",answer:"Had",meaning:"ถ้าผลการสอบถูกประกาศเร็วกว่านี้ ผู้สมัครก็คงจะเตรียมการอุทธรณ์ได้เร็วขึ้น",options:["Had", "Were", "Should", "If"]},
+  {dialogue:"Providing that the weather __________ favorable, the launch will proceed as scheduled.",answer:"is",meaning:"โดยมีเงื่อนไขว่าสภาพอากาศเอื้ออำนวย การปล่อยยานจะดำเนินไปตามกำหนดการ",options:["is", "was", "had been", "were"]},
+  {dialogue:"If the miners __________ the warning signs, the tunnel collapse could have been avoided.",answer:"had noticed",meaning:"ถ้าคนงานเหมืองสังเกตเห็นสัญญาณเตือน การถล่มของอุโมงค์ก็คงจะหลีกเลี่ยงได้",options:["noticed", "had noticed", "notice", "would notice"]},
+  {dialogue:"I would have accepted the scholarship __________ it required moving abroad permanently.",answer:"unless",meaning:"ฉันคงจะรับทุนการศึกษานั้น เว้นแต่ว่ามันจะกำหนดให้ต้องย้ายไปอยู่ต่างประเทศอย่างถาวร",options:["unless", "if", "even if", "provided"]},
+  {dialogue:"__________ she known about the delay, she would have rescheduled the meeting.",answer:"Had",meaning:"ถ้าเธอรู้เรื่องความล่าช้านี้ล่วงหน้า เธอก็คงจะเลื่อนการประชุมออกไปแล้ว",options:["Had", "Were", "Should", "Did"]},
+  {dialogue:"Even if the government __________ the tax cuts, the economy might not recover quickly.",answer:"approves",meaning:"ถึงแม้รัฐบาลจะอนุมัติการลดภาษี เศรษฐกิจก็อาจจะไม่ฟื้นตัวอย่างรวดเร็ว",options:["approves", "approved", "will approve", "had approved"]},
+  {dialogue:"If wolves __________ reintroduced to the region, the deer population would naturally decline.",answer:"were",meaning:"ถ้าหมาป่าถูกนำกลับมาปล่อยในพื้นที่นี้อีกครั้ง ประชากรกวางก็จะลดลงตามธรรมชาติ",options:["are", "were", "had been", "will be"]},
+  {dialogue:"__________ the astronauts run out of oxygen, the mission would have ended in tragedy.",answer:"Had",meaning:"ถ้านักบินอวกาศออกซิเจนหมด ภารกิจครั้งนี้ก็คงจะจบลงด้วยโศกนาฏกรรม",options:["Had", "Were", "Should", "Did"]},
+  {dialogue:"If the jury __________ more evidence, they might have reached a different verdict.",answer:"had had",meaning:"ถ้าคณะลูกขุนมีหลักฐานมากกว่านี้ พวกเขาก็อาจจะตัดสินคดีออกมาแตกต่างไป",options:["had", "have", "had had", "would have"]},
+  {dialogue:"As long as inflation __________ under control, the central bank won't raise interest rates.",answer:"stays",meaning:"ตราบใดที่อัตราเงินเฟ้อยังอยู่ในการควบคุม ธนาคารกลางก็จะไม่ขึ้นอัตราดอกเบี้ย",options:["stays", "stayed", "had stayed", "will stay"]},
+  {dialogue:"If the explorer __________ proper equipment, he wouldn't have survived the avalanche.",answer:"hadn't had",meaning:"ถ้านักสำรวจไม่มีอุปกรณ์ที่เหมาะสม เขาก็คงจะไม่รอดชีวิตจากหิมะถล่ม",options:["doesn't have", "hadn't had", "didn't have", "hasn't had"]},
+  {dialogue:"Suppose the internet __________ down worldwide for a whole day, how would businesses cope?",answer:"went",meaning:"สมมติว่าอินเทอร์เน็ตล่มทั่วโลกทั้งวัน ธุรกิจต่าง ๆ จะรับมือกันอย่างไร",options:["went", "goes", "had gone", "will go"]},
+  {dialogue:"__________ the negotiators willing to compromise, the strike could have ended weeks ago.",answer:"Were",meaning:"ถ้าผู้เจรจาทั้งสองฝ่ายเต็มใจที่จะประนีประนอมกัน การประท้วงหยุดงานก็คงจะยุติไปแล้วตั้งแต่หลายสัปดาห์ก่อน",options:["Had been", "Were", "Should", "Did"]},
+  {dialogue:"If the vaccine trial __________ successful, millions of doses will be produced next year.",answer:"is",meaning:"ถ้าการทดลองวัคซีนประสบความสำเร็จ วัคซีนหลายล้านโดสจะถูกผลิตขึ้นในปีหน้า",options:["is", "were", "had been", "has been"]},
+  {dialogue:"Unless the drought __________ soon, farmers will lose their entire harvest this season.",answer:"ends",meaning:"ถ้าภัยแล้งไม่ยุติลงในเร็ว ๆ นี้ เกษตรกรก็จะสูญเสียผลผลิตทั้งหมดในฤดูกาลนี้",options:["ends", "ended", "had ended", "will end"]},
+  {dialogue:"If the surgeon __________ hesitated for even a second, the patient might not have survived.",answer:"had",meaning:"ถ้าศัลยแพทย์ลังเลแม้เพียงวินาทีเดียว ผู้ป่วยก็อาจจะไม่รอดชีวิต",options:["has", "had", "would have", "have"]},
+  {dialogue:"Provided that the shipment __________ on time, the factory can resume production tomorrow.",answer:"arrives",meaning:"โดยมีเงื่อนไขว่าสินค้ามาถึงตรงเวลา โรงงานก็จะสามารถกลับมาผลิตได้อีกครั้งในวันพรุ่งนี้",options:["arrives", "arrived", "had arrived", "will arrive"]},
+  {dialogue:"If the empire __________ its borders so aggressively, it might not have collapsed so suddenly.",answer:"hadn't expanded",meaning:"ถ้าจักรวรรดินั้นไม่ได้ขยายพรมแดนอย่างก้าวร้าวเกินไป มันก็อาจจะไม่ล่มสลายลงอย่างฉับพลัน",options:["didn't expand", "hadn't expanded", "doesn't expand", "wouldn't expand"]},
+  {dialogue:"__________ the exam results disappoint you, remember that one test doesn't define your future.",answer:"Should",meaning:"ถ้าผลสอบทำให้คุณผิดหวัง จงจำไว้ว่าการสอบครั้งเดียวไม่ได้กำหนดอนาคตของคุณ",options:["Should", "Were", "Had", "Did"]},
+  {dialogue:"If I __________ born in a different era, my whole outlook on life would be different now.",answer:"were",meaning:"ถ้าฉันเกิดในยุคสมัยที่แตกต่างออกไป มุมมองต่อชีวิตทั้งหมดของฉันก็คงจะแตกต่างไปในตอนนี้",options:["was", "were", "had been", "am"]},
+  {dialogue:"The bridge would have been finished on schedule __________ the workers hadn't gone on strike.",answer:"unless",meaning:"สะพานคงจะสร้างเสร็จตามกำหนดแล้ว ถ้าคนงานไม่ได้นัดหยุดงาน",options:["if", "unless", "even if", "provided"]},
+  {dialogue:"If the detective __________ the clue sooner, the suspect wouldn't have escaped the country.",answer:"had noticed",meaning:"ถ้านักสืบสังเกตเห็นเบาะแสนั้นเร็วกว่านี้ ผู้ต้องสงสัยก็คงจะไม่หนีออกนอกประเทศไปได้",options:["noticed", "had noticed", "notices", "would notice"]},
+  {dialogue:"Assuming the merger __________ approval, the two companies will combine operations by January.",answer:"receives",meaning:"สมมติว่าการควบรวมกิจการได้รับการอนุมัติ สองบริษัทจะรวมการดำเนินงานเข้าด้วยกันภายในเดือนมกราคม",options:["receives", "received", "had received", "receiving"]},
+  {dialogue:"__________ I to lose my job tomorrow, I would still be able to pay the rent.",answer:"Were",meaning:"ถ้าฉันต้องตกงานพรุ่งนี้ ฉันก็ยังคงจะสามารถจ่ายค่าเช่าได้",options:["Am", "Were", "Had", "Should"]},
+  {dialogue:"If the climbers __________ down when the storm began, they would have reached base camp safely.",answer:"had turned",meaning:"ถ้านักปีนเขาหันกลับตอนที่พายุเริ่มก่อตัว พวกเขาก็คงจะไปถึงแคมป์หลักได้อย่างปลอดภัย",options:["turned", "had turned", "turn", "would turn"]},
+  {dialogue:"__________ prescribed correctly, the medication can cause severe side effects.",answer:"Unless",meaning:"หากไม่ได้จ่ายยาอย่างถูกต้อง ยานี้อาจก่อให้เกิดผลข้างเคียงรุนแรงได้",options:["Unless", "If", "Provided", "Otherwise"]},
+  {dialogue:"If the ambassador __________ more cautious, the diplomatic incident might have been avoided entirely.",answer:"had been",meaning:"ถ้าเอกอัครราชทูตระมัดระวังมากกว่านี้ เหตุการณ์ทางการทูตนั้นก็อาจจะหลีกเลี่ยงได้ทั้งหมด",options:["was", "were", "had been", "is"]},
+  {dialogue:"Children under sixteen are not permitted to enter __________ accompanied by a guardian.",answer:"unless",meaning:"เด็กอายุต่ำกว่าสิบหกปีไม่ได้รับอนุญาตให้เข้า เว้นแต่จะมีผู้ปกครองไปด้วย",options:["if", "unless", "even if", "suppose"]},
+  {dialogue:"If renewable energy __________ cheaper decades ago, fossil fuel consumption would be far lower today.",answer:"had become",meaning:"ถ้าพลังงานหมุนเวียนมีราคาถูกลงตั้งแต่หลายสิบปีก่อน การใช้เชื้อเพลิงฟอสซิลก็คงจะต่ำกว่านี้มากในปัจจุบัน",options:["became", "had become", "becomes", "has become"]},
+  {dialogue:"If the museum's curator __________ authenticated the painting earlier, the forgery scandal could have been prevented.",answer:"had",meaning:"ถ้าภัณฑารักษ์ของพิพิธภัณฑ์ตรวจสอบความแท้ของภาพวาดตั้งแต่เนิ่น ๆ เรื่องอื้อฉาวเรื่องของปลอมก็คงจะป้องกันได้",options:["has", "had", "have", "would have"]},
+  {dialogue:"__________ funding be withdrawn, the research team would have to abandon the project.",answer:"Should",meaning:"ถ้าเงินทุนถูกถอนออกไป ทีมวิจัยก็จะต้องล้มเลิกโครงการนี้",options:["Should", "Were", "Had", "Did"]},
+  {dialogue:"If the refugees __________ granted asylum sooner, many of them would have avoided further hardship.",answer:"had been",meaning:"ถ้าผู้ลี้ภัยได้รับสถานะผู้ลี้ภัยเร็วกว่านี้ หลายคนก็คงจะหลีกเลี่ยงความยากลำบากเพิ่มเติมได้",options:["were", "had been", "are", "have been"]},
+  {dialogue:"On condition that the tenant __________ the deposit, the landlord will hand over the keys.",answer:"pays",meaning:"โดยมีเงื่อนไขว่าผู้เช่าต้องชำระเงินมัดจำ เจ้าของบ้านจึงจะมอบกุญแจให้",options:["pays", "paid", "had paid", "will pay"]},
+  {dialogue:"If the coral reef __________ so much damage, marine biodiversity in the area would still be thriving.",answer:"hadn't suffered",meaning:"ถ้าแนวปะการังไม่ได้รับความเสียหายมากขนาดนี้ ความหลากหลายทางชีวภาพทางทะเลในพื้นที่นี้ก็คงจะยังคงเจริญเติบโตอยู่",options:["didn't suffer", "hadn't suffered", "doesn't suffer", "wouldn't suffer"]},
+  {dialogue:"__________ he more experienced, the committee would have appointed him as director immediately.",answer:"Were",meaning:"ถ้าเขามีประสบการณ์มากกว่านี้ คณะกรรมการก็คงจะแต่งตั้งเขาเป็นผู้อำนวยการในทันที",options:["Was", "Were", "Had been", "Should be"]},
+  {dialogue:"Even if the interest rate __________ raised again, homeowners would still struggle to keep up with payments.",answer:"were",meaning:"ถึงแม้อัตราดอกเบี้ยจะถูกปรับขึ้นอีกครั้ง เจ้าของบ้านก็คงจะยังคงดิ้นรนที่จะผ่อนชำระต่อไป",options:["is", "were", "had been", "will be"]},
+  {dialogue:"If the spacecraft __________ its trajectory slightly, it would have missed the planet's orbit entirely.",answer:"had adjusted",meaning:"ถ้ายานอวกาศปรับวิถีโคจรเพียงเล็กน้อย มันก็คงจะพลาดวงโคจรของดาวเคราะห์ไปโดยสิ้นเชิง",options:["had adjusted", "adjusted", "adjusts", "would adjust"]},
+  {dialogue:"__________ the peace talks fail again, the ceasefire could collapse within days.",answer:"Should",meaning:"ถ้าการเจรจาสันติภาพล้มเหลวอีกครั้ง การหยุดยิงก็อาจจะล่มสลายภายในไม่กี่วัน",options:["Should", "Were", "Had", "Does"]},
+  {dialogue:"If the novelist __________ criticism so personally, she might have continued writing for decades more.",answer:"hadn't taken",meaning:"ถ้านักเขียนนวนิยายไม่ได้ถือคำวิจารณ์เป็นเรื่องส่วนตัวมากขนาดนั้น เธอก็อาจจะเขียนหนังสือต่อไปได้อีกหลายสิบปี",options:["didn't take", "hadn't taken", "doesn't take", "wouldn't take"]},
+  {dialogue:"As long as the patient __________ the medication as prescribed, the infection should clear up within a week.",answer:"takes",meaning:"ตราบใดที่ผู้ป่วยรับประทานยาตามที่แพทย์สั่ง การติดเชื้อก็ควรจะหายภายในหนึ่งสัปดาห์",options:["takes", "took", "had taken", "will take"]},
+  {dialogue:"If the satellite __________ launched before the funding cuts, the mission would already be complete.",answer:"had been",meaning:"ถ้าดาวเทียมถูกส่งขึ้นก่อนที่จะมีการตัดงบประมาณ ภารกิจนี้ก็คงจะเสร็จสมบูรณ์ไปแล้ว",options:["was", "were", "had been", "is"]},
+  {dialogue:"__________ shareholders demand an investigation, the board must comply within thirty days.",answer:"Should",meaning:"ถ้าผู้ถือหุ้นเรียกร้องให้มีการสอบสวน คณะกรรมการต้องปฏิบัติตามภายในสามสิบวัน",options:["Should", "Were", "Had", "Do"]},
+  {dialogue:"If the translator __________ the nuances of the original text, the meaning wouldn't have been so distorted.",answer:"had understood",meaning:"ถ้าผู้แปลเข้าใจความละเอียดอ่อนของต้นฉบับ ความหมายก็คงจะไม่ถูกบิดเบือนไปมากขนาดนี้",options:["understood", "had understood", "understands", "would understand"]},
+  {dialogue:"Unless the airline __________ compensation, passengers plan to file a class-action lawsuit.",answer:"offers",meaning:"ถ้าสายการบินไม่เสนอค่าชดเชย ผู้โดยสารวางแผนที่จะยื่นฟ้องคดีแบบกลุ่ม",options:["offers", "offered", "had offered", "will offer"]},
+  {dialogue:"If the colony __________ more supplies before winter, fewer settlers would have perished.",answer:"had received",meaning:"ถ้าอาณานิคมได้รับเสบียงมากขึ้นก่อนฤดูหนาว ผู้ตั้งถิ่นฐานก็คงจะเสียชีวิตน้อยลง",options:["had received", "received", "receives", "would receive"]},
+  {dialogue:"__________ the CEO resign, the stock price would plummet within hours.",answer:"Should",meaning:"ถ้าซีอีโอลาออก ราคาหุ้นก็จะดิ่งลงภายในไม่กี่ชั่วโมง",options:["Should", "Were", "Had", "Does"]},
+  {dialogue:"If the treaty negotiators __________ more flexible, the war might have ended two years earlier.",answer:"had been",meaning:"ถ้าผู้เจรจาสนธิสัญญายืดหยุ่นมากกว่านี้ สงครามก็อาจจะจบลงเร็วกว่านี้ถึงสองปี",options:["were", "had been", "are", "have been"]},
+  {dialogue:"Suppose humanity __________ another habitable planet tomorrow, would we still care for Earth the same way?",answer:"discovered",meaning:"สมมติว่ามนุษยชาติค้นพบดาวเคราะห์ที่อยู่อาศัยได้อีกดวงในวันพรุ่งนี้ เราจะยังคงดูแลโลกเหมือนเดิมหรือไม่",options:["discovered", "discovers", "had discovered", "will discover"]},
+  {dialogue:"If the levee __________ properly maintained, the flood wouldn't have devastated so many homes.",answer:"had been",meaning:"ถ้าคันกั้นน้ำได้รับการดูแลรักษาอย่างเหมาะสม น้ำท่วมก็คงจะไม่ทำลายบ้านเรือนมากมายขนาดนี้",options:["was", "were", "had been", "is"]},
+  {dialogue:"Provided the witness __________ to testify, the trial can proceed as planned next week.",answer:"agrees",meaning:"โดยมีเงื่อนไขว่าพยานยินยอมที่จะให้การ การพิจารณาคดีก็จะดำเนินต่อไปตามแผนในสัปดาห์หน้า",options:["agrees", "agreed", "had agreed", "agreeing"]},
+  {dialogue:"If the empire's leaders __________ diplomacy over conquest, history might look very different today.",answer:"had chosen",meaning:"ถ้าผู้นำของจักรวรรดิเลือกการทูตมากกว่าการพิชิตดินแดน ประวัติศาสตร์ก็อาจจะแตกต่างไปจากปัจจุบันมาก",options:["chose", "had chosen", "choose", "would choose"]},
+  {dialogue:"__________ the antidote arrive within the hour, the victim's chances of survival would rise dramatically.",answer:"Should",meaning:"ถ้ายาแก้พิษมาถึงภายในหนึ่งชั่วโมง โอกาสรอดชีวิตของเหยื่อก็จะเพิ่มขึ้นอย่างมาก",options:["Should", "Were", "Had", "Does"]},
+  {dialogue:"If I __________ known how competitive the industry would become, I would have chosen a different career.",answer:"had",meaning:"ถ้าฉันรู้ล่วงหน้าว่าอุตสาหกรรมนี้จะมีการแข่งขันสูงขนาดนี้ ฉันก็คงจะเลือกอาชีพอื่น",options:["have", "had", "has", "would have"]},
+  {dialogue:"Choose the sentence equivalent in meaning to: \"Unless it is carefully monitored, the nuclear reactor could pose a serious safety risk.\"",answer:"Unless carefully monitored, the nuclear reactor could pose a serious safety risk.",meaning:"ถ้าไม่ได้รับการตรวจสอบอย่างระมัดระวัง เครื่องปฏิกรณ์นิวเคลียร์อาจก่อให้เกิดความเสี่ยงด้านความปลอดภัยอย่างร้ายแรง",options:["If it is carefully monitored, it could pose a risk.", "Unless carefully monitored, the nuclear reactor could pose a serious safety risk.", "If it were carefully monitored, it could pose a risk.", "Unless it carefully monitors, it could pose a risk."]},
+  {dialogue:"If the archaeologist __________ the tomb intact, our understanding of the dynasty would be far more complete now.",answer:"had found",meaning:"ถ้านักโบราณคดีพบสุสานในสภาพสมบูรณ์ ความเข้าใจของเราเกี่ยวกับราชวงศ์นั้นก็คงจะสมบูรณ์กว่านี้มากในปัจจุบัน",options:["found", "had found", "finds", "would find"]},
+  {dialogue:"__________ the court rule against the corporation, thousands of workers would receive compensation.",answer:"Should",meaning:"ถ้าศาลตัดสินให้บริษัทแพ้คดี คนงานหลายพันคนก็จะได้รับค่าชดเชย",options:["Should", "Were", "Had", "Does"]},
+  {dialogue:"If the expedition team __________ the local guides' warnings, they wouldn't have gotten lost in the jungle.",answer:"had heeded",meaning:"ถ้าทีมสำรวจฟังคำเตือนของไกด์ท้องถิ่น พวกเขาก็คงจะไม่หลงทางในป่า",options:["heeded", "had heeded", "heed", "would heed"]},
+  {dialogue:"Even if the peace agreement __________ signed tomorrow, rebuilding the country would take decades.",answer:"is",meaning:"ถึงแม้ข้อตกลงสันติภาพจะถูกลงนามในวันพรุ่งนี้ การฟื้นฟูประเทศก็จะต้องใช้เวลาหลายสิบปี",options:["is", "were", "had been", "will be"]},
+  {dialogue:"If the queen __________ abdicated when she did, the monarchy's popularity might have declined much sooner.",answer:"hadn't",meaning:"ถ้าพระราชินีไม่ได้สละราชสมบัติในตอนที่พระองค์ทรงทำ ความนิยมของราชวงศ์ก็อาจจะลดลงเร็วกว่านี้มาก",options:["didn't", "hadn't", "doesn't", "wouldn't"]},
+];
+
+/* =====================================================
+   RELATIVE CLAUSE QUESTION BANK
+===================================================== */
+
+const relativeQuestions = [
+  {dialogue:"The scientist __________ discovered the vaccine was awarded the Nobel Prize last year.",answer:"who",meaning:"นักวิทยาศาสตร์ที่ค้นพบวัคซีนได้รับรางวัลโนเบลเมื่อปีที่แล้ว",options:["who", "whom", "whose", "which"]},
+  {dialogue:"The novel, __________ was translated into twenty languages, became an international bestseller.",answer:"which",meaning:"นวนิยายเรื่องนี้ ซึ่งได้รับการแปลเป็นยี่สิบภาษา กลายเป็นหนังสือขายดีระดับนานาชาติ",options:["that", "which", "who", "whom"]},
+  {dialogue:"The professor __________ research changed the field of genetics passed away last month.",answer:"whose",meaning:"ศาสตราจารย์ผู้ซึ่งงานวิจัยของเขาเปลี่ยนแปลงวงการพันธุศาสตร์เสียชีวิตเมื่อเดือนที่แล้ว",options:["who", "whom", "whose", "which"]},
+  {dialogue:"This is the exact spot __________ the treaty was signed over two centuries ago.",answer:"where",meaning:"นี่คือจุดที่แน่ชัดที่สนธิสัญญาถูกลงนามเมื่อกว่าสองศตวรรษที่แล้ว",options:["which", "where", "when", "why"]},
+  {dialogue:"The committee members, most of __________ opposed the new policy, resigned in protest.",answer:"whom",meaning:"สมาชิกคณะกรรมการ ซึ่งส่วนใหญ่คัดค้านนโยบายใหม่นี้ ได้ลาออกเพื่อประท้วง",options:["whom", "which", "who", "whose"]},
+  {dialogue:"The reason __________ the merger collapsed remains undisclosed to the public.",answer:"why",meaning:"เหตุผลที่การควบรวมกิจการล้มเหลวยังไม่ได้เปิดเผยต่อสาธารณะ",options:["which", "why", "where", "when"]},
+  {dialogue:"The manager to __________ I reported the incident has since been transferred to another branch.",answer:"whom",meaning:"ผู้จัดการที่ฉันรายงานเหตุการณ์นี้ให้ทราบถูกย้ายไปสาขาอื่นแล้ว",options:["who", "whom", "which", "whose"]},
+  {dialogue:"The village, __________ population has declined by half in a decade, is struggling economically.",answer:"whose",meaning:"หมู่บ้านแห่งนี้ ซึ่งจำนวนประชากรลดลงครึ่งหนึ่งในทศวรรษเดียว กำลังประสบปัญหาทางเศรษฐกิจ",options:["which", "whose", "where", "that"]},
+  {dialogue:"2020 was the year __________ the pandemic changed the world forever.",answer:"when",meaning:"ปี 2020 คือปีที่การระบาดใหญ่เปลี่ยนแปลงโลกไปตลอดกาล",options:["which", "when", "where", "why"]},
+  {dialogue:"The applicants, several of __________ had advanced degrees, competed for the single vacancy.",answer:"whom",meaning:"ผู้สมัคร ซึ่งหลายคนมีวุฒิการศึกษาระดับสูง ต่างแข่งขันกันเพื่อตำแหน่งว่างเพียงตำแหน่งเดียว",options:["whom", "which", "who", "whose"]},
+  {dialogue:"The company __________ headquarters was destroyed in the fire has relocated temporarily.",answer:"whose",meaning:"บริษัทซึ่งสำนักงานใหญ่ถูกไฟไหม้ได้ย้ายที่ตั้งชั่วคราวแล้ว",options:["who", "whom", "whose", "which"]},
+  {dialogue:"The bridge __________ collapsed during the earthquake had been inspected only a month earlier.",answer:"which",meaning:"สะพานที่พังถล่มระหว่างแผ่นดินไหวเพิ่งได้รับการตรวจสอบเมื่อเดือนก่อนหน้านั้นเอง",options:["who", "which", "whom", "whose"]},
+  {dialogue:"The witness, __________ testimony was crucial to the case, refused to appear in court.",answer:"whose",meaning:"พยาน ซึ่งคำให้การของเขามีความสำคัญต่อคดีนี้ ปฏิเสธที่จะขึ้นศาล",options:["who", "whom", "whose", "which"]},
+  {dialogue:"This is the museum in __________ the stolen artifact was finally recovered.",answer:"which",meaning:"นี่คือพิพิธภัณฑ์ที่โบราณวัตถุที่ถูกขโมยไปในที่สุดก็ถูกค้นพบกลับคืนมา",options:["which", "where", "whom", "that"]},
+  {dialogue:"The peace conference, __________ delegates gathered from forty countries, ended without an agreement.",answer:"where",meaning:"การประชุมสันติภาพ ซึ่งมีคณะผู้แทนมารวมตัวจากสี่สิบประเทศ จบลงโดยไม่มีข้อตกลงใด ๆ",options:["which", "where", "whose", "when"]},
+  {dialogue:"The refugees, many of __________ had lost everything, were given temporary shelter.",answer:"whom",meaning:"ผู้ลี้ภัย ซึ่งหลายคนสูญเสียทุกอย่างไป ได้รับที่พักพิงชั่วคราว",options:["whom", "which", "who", "whose"]},
+  {dialogue:"The startup founder __________ idea seemed absurd at first later became a billionaire.",answer:"whose",meaning:"ผู้ก่อตั้งสตาร์ทอัพผู้ซึ่งไอเดียในตอนแรกดูไร้สาระ ภายหลังกลายเป็นมหาเศรษฐี",options:["who", "whom", "whose", "which"]},
+  {dialogue:"The courtroom fell silent at the moment __________ the verdict was read aloud.",answer:"when",meaning:"ห้องพิจารณาคดีเงียบสงัดในช่วงเวลาที่คำตัดสินถูกอ่านออกมา",options:["which", "when", "where", "why"]},
+  {dialogue:"The diplomat with __________ I negotiated for months finally agreed to the terms.",answer:"whom",meaning:"นักการทูตที่ฉันเจรจาด้วยเป็นเวลาหลายเดือนในที่สุดก็ยอมรับข้อตกลง",options:["who", "whom", "which", "whose"]},
+  {dialogue:"The corporation, __________ profits tripled last year, plans to expand into new markets.",answer:"whose",meaning:"บริษัทแห่งนี้ ซึ่งผลกำไรเพิ่มขึ้นสามเท่าเมื่อปีที่แล้ว มีแผนที่จะขยายไปยังตลาดใหม่",options:["which", "whose", "where", "who"]},
+  {dialogue:"The clinic __________ my grandmother received treatment has since shut down permanently.",answer:"where",meaning:"คลินิกที่คุณยายของฉันเคยเข้ารับการรักษาได้ปิดตัวลงอย่างถาวรแล้ว",options:["which", "where", "when", "whose"]},
+  {dialogue:"The soldiers, most of __________ were barely eighteen, were sent to the front line.",answer:"whom",meaning:"ทหาร ซึ่งส่วนใหญ่มีอายุเพียงสิบแปดปี ถูกส่งไปยังแนวหน้า",options:["whom", "which", "who", "whose"]},
+  {dialogue:"The professor explained the process by __________ the ancient artifacts were dated.",answer:"which",meaning:"ศาสตราจารย์อธิบายกระบวนการที่ใช้ในการหาอายุของโบราณวัตถุเหล่านั้น",options:["which", "where", "whom", "whose"]},
+  {dialogue:"The island, __________ few tourists ever visit, remains largely untouched by development.",answer:"where",meaning:"เกาะแห่งนี้ ซึ่งมีนักท่องเที่ยวไปเยือนน้อยมาก ยังคงไม่ถูกพัฒนามากนัก",options:["which", "where", "that", "whose"]},
+  {dialogue:"The employee __________ complaint triggered the investigation later withdrew her statement.",answer:"whose",meaning:"พนักงานผู้ซึ่งคำร้องเรียนของเธอนำไปสู่การสอบสวนภายหลังได้ถอนคำให้การของเธอ",options:["who", "whom", "whose", "which"]},
+  {dialogue:"That was the exact reason __________ the board decided to postpone the launch.",answer:"why",meaning:"นั่นคือเหตุผลที่แน่ชัดที่คณะกรรมการตัดสินใจเลื่อนการเปิดตัวออกไป",options:["which", "why", "where", "when"]},
+  {dialogue:"The negotiators, none of __________ trusted each other, struggled to reach a compromise.",answer:"whom",meaning:"ผู้เจรจา ซึ่งไม่มีใครไว้วางใจกันเลย ต่างประสบปัญหาในการหาข้อตกลงร่วมกัน",options:["whom", "which", "who", "whose"]},
+  {dialogue:"The laboratory __________ the experiment was conducted has been closed for safety inspections.",answer:"where",meaning:"ห้องปฏิบัติการที่ทำการทดลองนี้ถูกปิดเพื่อตรวจสอบความปลอดภัย",options:["which", "where", "when", "why"]},
+  {dialogue:"The author __________ book won the award has just announced her retirement.",answer:"whose",meaning:"นักเขียนผู้ซึ่งหนังสือของเธอได้รับรางวัลเพิ่งประกาศเกษียณจากการเขียน",options:["who", "whom", "whose", "which"]},
+  {dialogue:"The century __________ the industrial revolution took place transformed human civilization.",answer:"when",meaning:"ศตวรรษที่การปฏิวัติอุตสาหกรรมเกิดขึ้นได้เปลี่ยนแปลงอารยธรรมมนุษย์",options:["which", "when", "where", "why"]},
+  {dialogue:"The lawyer for __________ the defendant worked was later disbarred for misconduct.",answer:"whom",meaning:"ทนายความที่จำเลยทำงานให้ในภายหลังถูกเพิกถอนใบอนุญาตเนื่องจากประพฤติมิชอบ",options:["who", "whom", "which", "whose"]},
+  {dialogue:"The theory, __________ was once dismissed as absurd, is now widely accepted by physicists.",answer:"which",meaning:"ทฤษฎีนี้ ซึ่งครั้งหนึ่งเคยถูกมองว่าไร้สาระ ปัจจุบันได้รับการยอมรับอย่างกว้างขวางจากนักฟิสิกส์",options:["that", "which", "who", "whom"]},
+  {dialogue:"The village elders, all of __________ remembered the war, refused to discuss it openly.",answer:"whom",meaning:"ผู้อาวุโสของหมู่บ้าน ซึ่งทุกคนจำสงครามนั้นได้ ปฏิเสธที่จะพูดถึงมันอย่างเปิดเผย",options:["whom", "which", "who", "whose"]},
+  {dialogue:"The auditor uncovered the exact point at __________ the company's funds had been misappropriated.",answer:"which",meaning:"ผู้ตรวจสอบบัญชีค้นพบจุดที่แน่ชัดที่เงินทุนของบริษัทถูกยักยอกไป",options:["which", "where", "whom", "that"]},
+  {dialogue:"The senator, __________ voting record has been consistently controversial, is running for re-election.",answer:"whose",meaning:"วุฒิสมาชิกคนนี้ ซึ่งประวัติการลงคะแนนของเขามักจะเป็นที่ถกเถียงเสมอ กำลังลงสมัครรับเลือกตั้งอีกครั้ง",options:["which", "whose", "who", "whom"]},
+  {dialogue:"This is the courtroom __________ the historic trial took place decades ago.",answer:"where",meaning:"นี่คือห้องพิจารณาคดีที่การพิจารณาคดีครั้งประวัติศาสตร์เกิดขึ้นเมื่อหลายสิบปีก่อน",options:["which", "where", "whom", "whose"]},
+  {dialogue:"The board members, three of __________ later resigned, were accused of financial mismanagement.",answer:"whom",meaning:"สมาชิกคณะกรรมการ ซึ่งสามคนในนั้นลาออกในภายหลัง ถูกกล่าวหาว่าบริหารการเงินผิดพลาด",options:["whom", "which", "who", "whose"]},
+  {dialogue:"The circumstances under __________ the treaty was negotiated remain a subject of historical debate.",answer:"which",meaning:"สถานการณ์ที่สนธิสัญญานี้ถูกเจรจาขึ้นยังคงเป็นประเด็นถกเถียงทางประวัติศาสตร์",options:["which", "where", "whom", "whose"]},
+  {dialogue:"The engineer __________ calculations prevented the bridge from collapsing was honored publicly.",answer:"whose",meaning:"วิศวกรผู้ซึ่งการคำนวณของเขาป้องกันไม่ให้สะพานพังทลายได้รับเกียรติต่อสาธารณะ",options:["who", "whom", "whose", "which"]},
+  {dialogue:"The exact era __________ the dinosaurs went extinct is still debated among scientists.",answer:"when",meaning:"ยุคสมัยที่แน่ชัดที่ไดโนเสาร์สูญพันธุ์ยังคงเป็นที่ถกเถียงกันในหมู่นักวิทยาศาสตร์",options:["which", "when", "where", "why"]},
+  {dialogue:"The refugees' testimonies, most of __________ were later verified, exposed the regime's abuses.",answer:"which",meaning:"คำให้การของผู้ลี้ภัย ซึ่งส่วนใหญ่ได้รับการยืนยันในภายหลัง เปิดโปงการละเมิดของระบอบการปกครองนั้น",options:["which", "whom", "who", "whose"]},
+  {dialogue:"The chairman, without __________ approval no decision could be made, was unexpectedly absent.",answer:"whose",meaning:"ประธาน ซึ่งหากไม่มีการอนุมัติจากเขาก็ไม่สามารถตัดสินใจใด ๆ ได้ ขาดประชุมอย่างไม่คาดคิด",options:["who", "whom", "whose", "which"]},
+  {dialogue:"The prison __________ the political prisoners were held has since been converted into a museum.",answer:"where",meaning:"เรือนจำที่นักโทษการเมืองถูกคุมขังไว้ได้ถูกเปลี่ยนเป็นพิพิธภัณฑ์แล้ว",options:["which", "where", "whom", "whose"]},
+  {dialogue:"The heirs, several of __________ contested the will, eventually settled out of court.",answer:"whom",meaning:"ทายาท ซึ่งหลายคนคัดค้านพินัยกรรม ในที่สุดก็ยอมความกันนอกศาล",options:["whom", "which", "who", "whose"]},
+  {dialogue:"The exact mechanism by __________ the vaccine triggers immunity is still being studied.",answer:"which",meaning:"กลไกที่แน่ชัดที่วัคซีนกระตุ้นภูมิคุ้มกันยังคงอยู่ระหว่างการศึกษา",options:["which", "where", "whom", "whose"]},
+  {dialogue:"The architect __________ designs revolutionized modern skyscrapers died in relative obscurity.",answer:"whose",meaning:"สถาปนิกผู้ซึ่งผลงานออกแบบของเขาปฏิวัติวงการตึกระฟ้าสมัยใหม่เสียชีวิตอย่างเงียบ ๆ โดยไม่มีใครรู้จัก",options:["who", "whom", "whose", "which"]},
+  {dialogue:"The turning point __________ the campaign gained momentum was the televised debate.",answer:"when",meaning:"จุดเปลี่ยนที่การรณรงค์เริ่มได้รับความสนใจคือการดีเบตที่ถ่ายทอดทางโทรทัศน์",options:["which", "when", "where", "why"]},
+  {dialogue:"The tribe, __________ ancestral land was seized decades ago, is now demanding reparations.",answer:"whose",meaning:"ชนเผ่านี้ ซึ่งที่ดินของบรรพบุรุษถูกยึดไปเมื่อหลายสิบปีก่อน กำลังเรียกร้องค่าชดเชยในขณะนี้",options:["which", "whose", "who", "whom"]},
+  {dialogue:"The panel of judges, none of __________ had prior experience in the field, was heavily criticized.",answer:"whom",meaning:"คณะกรรมการตัดสิน ซึ่งไม่มีใครมีประสบการณ์ในสาขานี้มาก่อนเลย ถูกวิพากษ์วิจารณ์อย่างหนัก",options:["whom", "which", "who", "whose"]},
+  {dialogue:"The village square, __________ the protest first erupted, has become a symbol of resistance.",answer:"where",meaning:"จัตุรัสกลางหมู่บ้าน ซึ่งการประท้วงปะทุขึ้นเป็นครั้งแรก ได้กลายเป็นสัญลักษณ์ของการต่อต้าน",options:["which", "where", "whose", "that"]},
+  {dialogue:"The composer __________ symphony premiered last night received a standing ovation.",answer:"whose",meaning:"คีตกวีผู้ซึ่งซิมโฟนีของเขาเปิดการแสดงครั้งแรกเมื่อคืนนี้ได้รับเสียงปรบมือยืนชม",options:["who", "whom", "whose", "which"]},
+  {dialogue:"The exact reasons __________ the empire declined so rapidly are still debated by historians.",answer:"why",meaning:"เหตุผลที่แน่ชัดที่จักรวรรดินี้เสื่อมสลายอย่างรวดเร็วยังคงเป็นที่ถกเถียงในหมู่นักประวัติศาสตร์",options:["which", "why", "where", "when"]},
+  {dialogue:"The shareholders, a majority of __________ voted against the plan, forced the CEO to resign.",answer:"whom",meaning:"ผู้ถือหุ้น ซึ่งส่วนใหญ่ลงคะแนนคัดค้านแผนดังกล่าว ได้บีบให้ซีอีโอลาออก",options:["whom", "which", "who", "whose"]},
+  {dialogue:"The clause, according to __________ either party may terminate the contract, was added last minute.",answer:"which",meaning:"ข้อสัญญานี้ ซึ่งระบุว่าทั้งสองฝ่ายสามารถยกเลิกสัญญาได้ ถูกเพิ่มเข้ามาในนาทีสุดท้าย",options:["which", "where", "whom", "whose"]},
+  {dialogue:"The orphanage __________ she grew up has since been demolished to make way for a highway.",answer:"where",meaning:"สถานเลี้ยงเด็กกำพร้าที่เธอเติบโตมาถูกรื้อถอนไปแล้วเพื่อสร้างทางหลวง",options:["which", "where", "whom", "whose"]},
+  {dialogue:"The philosopher, __________ ideas were once considered heretical, is now taught in every university.",answer:"whose",meaning:"นักปรัชญาคนนี้ ซึ่งแนวคิดของเขาเคยถูกมองว่าเป็นความเชื่อนอกรีต ปัจจุบันถูกสอนอยู่ในทุกมหาวิทยาลัย",options:["which", "whose", "who", "whom"]},
+  {dialogue:"The exact instant __________ the ceasefire took effect was captured on live television.",answer:"when",meaning:"ช่วงเวลาที่แน่ชัดที่การหยุดยิงมีผลบังคับใช้ถูกบันทึกภาพสดทางโทรทัศน์",options:["which", "when", "where", "why"]},
+  {dialogue:"The tenants, many of __________ had lived there for decades, refused to vacate the building.",answer:"whom",meaning:"ผู้เช่า ซึ่งหลายคนอาศัยอยู่ที่นั่นมานานหลายสิบปี ปฏิเสธที่จะย้ายออกจากอาคาร",options:["whom", "which", "who", "whose"]},
+  {dialogue:"The clinic to __________ patients are referred for rare diseases is located in the capital.",answer:"which",meaning:"คลินิกที่ผู้ป่วยโรคหายากถูกส่งตัวไปตั้งอยู่ในเมืองหลวง",options:["who", "whom", "which", "whose"]},
+  {dialogue:"The scandal, the details of __________ are still emerging, has shaken public trust in the institution.",answer:"which",meaning:"เรื่องอื้อฉาวนี้ ซึ่งรายละเอียดยังคงทยอยปรากฏออกมา ได้สั่นคลอนความเชื่อมั่นของสาธารณชนที่มีต่อสถาบันนี้",options:["which", "where", "whom", "whose"]},
+  {dialogue:"Choose the grammatically correct sentence.",answer:"The book that I borrowed from the library is overdue.",meaning:"หนังสือที่ฉันยืมมาจากห้องสมุดเลยกำหนดส่งแล้ว",options:["The book, that I borrowed from the library, is overdue.", "The book which I borrowed from the library, is overdue.", "The book that I borrowed from the library is overdue.", "The book, which I borrowed from the library is overdue."]},
+  {dialogue:"Choose the grammatically correct sentence.",answer:"My brother, who lives in Chiang Mai, is a doctor.",meaning:"พี่ชายของฉัน ซึ่งอาศัยอยู่ที่เชียงใหม่ เป็นหมอ",options:["My brother, that lives in Chiang Mai, is a doctor.", "My brother, who lives in Chiang Mai, is a doctor.", "My brother, whom lives in Chiang Mai, is a doctor.", "My brother, which lives in Chiang Mai, is a doctor."]},
+  {dialogue:"The employee __________ was fired for embezzlement is now suing the company for wrongful termination.",answer:"who",meaning:"พนักงานคนที่ถูกไล่ออกเพราะยักยอกทรัพย์กำลังฟ้องบริษัทฐานเลิกจ้างโดยไม่เป็นธรรม",options:["who", "whom", "whose", "which"]},
+  {dialogue:"The report, __________ conclusions many experts dispute, was leaked to the press yesterday.",answer:"whose",meaning:"รายงานฉบับนี้ ซึ่งข้อสรุปถูกผู้เชี่ยวชาญหลายคนโต้แย้ง ถูกเปิดเผยต่อสื่อมวลชนเมื่อวานนี้",options:["which", "whose", "that", "who"]},
+  {dialogue:"Reduce the relative clause: \"The letter that was written in French was never translated.\"",answer:"The letter written in French was never translated.",meaning:"จดหมายที่เขียนเป็นภาษาฝรั่งเศสไม่เคยถูกแปลเลย",options:["The letter writing in French was never translated.", "The letter written in French was never translated.", "The letter, written in French, was never translated it.", "The letter to write in French was never translated."]},
+  {dialogue:"The professor __________ lecture I attended yesterday specializes in quantum mechanics.",answer:"whose",meaning:"ศาสตราจารย์ผู้ซึ่งการบรรยายของเขาที่ฉันไปฟังเมื่อวานนี้มีความเชี่ยวชาญด้านกลศาสตร์ควอนตัม",options:["who", "whom", "whose", "which"]},
+  {dialogue:"Choose the sentence that correctly uses a non-defining relative clause.",answer:"Bangkok, where I was born, has changed a lot.",meaning:"กรุงเทพฯ ซึ่งเป็นที่ที่ฉันเกิด เปลี่ยนแปลงไปมาก",options:["The city where I was born has changed a lot.", "Bangkok, where I was born, has changed a lot.", "Bangkok that I was born has changed a lot.", "Bangkok, that I was born, has changed a lot."]},
+  {dialogue:"The prisoners, __________ of whom had been wrongfully convicted, were finally released after decades.",answer:"most",meaning:"นักโทษ ซึ่งส่วนใหญ่ถูกตัดสินว่ามีความผิดอย่างไม่เป็นธรรม ในที่สุดก็ได้รับการปล่อยตัวหลังจากผ่านไปหลายสิบปี",options:["most", "whose", "which", "who"]},
+  {dialogue:"Reduce: \"The passengers who were injured in the crash were taken to hospital.\"",answer:"The passengers injured in the crash were taken to hospital.",meaning:"ผู้โดยสารที่ได้รับบาดเจ็บจากอุบัติเหตุถูกนำตัวส่งโรงพยาบาล",options:["The passengers injuring in the crash were taken to hospital.", "The passengers injured in the crash were taken to hospital.", "The passengers, injured in the crash, were taken it to hospital.", "The passengers to injure in the crash were taken to hospital."]},
+  {dialogue:"The exact spot __________ the meteorite landed is now a protected research site.",answer:"where",meaning:"จุดที่แน่ชัดที่อุกกาบาตตกลงมาตอนนี้เป็นพื้นที่วิจัยที่ได้รับการคุ้มครอง",options:["which", "where", "whom", "why"]},
+  {dialogue:"The novelist's estate, over __________ his descendants are still fighting, is worth millions.",answer:"which",meaning:"มรดกของนักเขียนนวนิยาย ซึ่งลูกหลานของเขายังคงต่อสู้แย่งชิงกันอยู่ มีมูลค่าหลายล้าน",options:["which", "where", "whom", "whose"]},
+  {dialogue:"Choose the grammatically correct sentence.",answer:"The scientists who discovered the gene won a prize.",meaning:"นักวิทยาศาสตร์ที่ค้นพบยีนนี้ได้รับรางวัล",options:["The scientists whose discovered the gene won a prize.", "The scientists who discovered the gene won a prize.", "The scientists which discovered the gene won a prize.", "The scientists whom discovered the gene won a prize."]},
+  {dialogue:"The council, __________ decision sparked nationwide protests, later reversed the policy.",answer:"whose",meaning:"สภานี้ ซึ่งการตัดสินใจก่อให้เกิดการประท้วงทั่วประเทศ ภายหลังได้ยกเลิกนโยบายดังกล่าว",options:["which", "whose", "who", "whom"]},
+  {dialogue:"The exact hour __________ the ship sank has never been officially confirmed.",answer:"when",meaning:"ชั่วโมงที่แน่ชัดที่เรือลำนั้นจมยังไม่เคยได้รับการยืนยันอย่างเป็นทางการ",options:["which", "when", "where", "why"]},
+  {dialogue:"The victims, most of __________ were children, were airlifted to safety.",answer:"whom",meaning:"เหยื่อ ซึ่งส่วนใหญ่เป็นเด็ก ถูกเคลื่อนย้ายทางอากาศไปยังที่ปลอดภัย",options:["whom", "which", "who", "whose"]},
+  {dialogue:"Reduce: \"The documents that were signed by the minister were later declared void.\"",answer:"The documents signed by the minister were later declared void.",meaning:"เอกสารที่ลงนามโดยรัฐมนตรีภายหลังถูกประกาศให้เป็นโมฆะ",options:["The documents signing by the minister were later declared void.", "The documents signed by the minister were later declared void.", "The documents, sign by the minister, were later declared void.", "The documents to sign by the minister were later declared void."]},
+  {dialogue:"The exact cause __________ the aircraft went down remains under investigation.",answer:"why",meaning:"สาเหตุที่แน่ชัดที่เครื่องบินตกยังคงอยู่ระหว่างการสอบสวน",options:["which", "why", "where", "when"]},
+  {dialogue:"Choose the sentence that correctly uses \"whom\".",answer:"The man to whom I spoke yesterday is my uncle.",meaning:"ชายคนที่ฉันพูดด้วยเมื่อวานนี้คือลุงของฉัน",options:["The man whom called you yesterday is my uncle.", "The man to whom I spoke yesterday is my uncle.", "The man whom spoke to me yesterday is my uncle.", "The man which I spoke yesterday is my uncle."]},
+  {dialogue:"The corporation's founders, several of __________ have since passed away, built an empire from nothing.",answer:"whom",meaning:"ผู้ก่อตั้งบริษัท ซึ่งหลายคนเสียชีวิตไปแล้ว ได้สร้างอาณาจักรธุรกิจขึ้นมาจากศูนย์",options:["whom", "which", "who", "whose"]},
+  {dialogue:"The dam, construction of __________ took over a decade, now supplies power to millions.",answer:"which",meaning:"เขื่อนแห่งนี้ ซึ่งการก่อสร้างใช้เวลากว่าทศวรรษ ปัจจุบันจ่ายกระแสไฟฟ้าให้กับผู้คนหลายล้านคน",options:["which", "where", "whom", "whose"]},
+  {dialogue:"The exact moment __________ the alliance was betrayed changed the course of the war.",answer:"when",meaning:"ช่วงเวลาที่แน่ชัดที่พันธมิตรถูกทรยศได้เปลี่ยนทิศทางของสงคราม",options:["which", "when", "where", "why"]},
+  {dialogue:"Reduce: \"The building that was constructed in 1900 is now a heritage site.\"",answer:"The building constructed in 1900 is now a heritage site.",meaning:"อาคารที่สร้างขึ้นในปี 1900 ปัจจุบันเป็นแหล่งมรดกทางวัฒนธรรม",options:["The building constructing in 1900 is now a heritage site.", "The building constructed in 1900 is now a heritage site.", "The building, construct in 1900, is now a heritage site.", "The building to construct in 1900 is now a heritage site."]},
+  {dialogue:"The activists, none of __________ expected such a swift response, celebrated the policy reversal.",answer:"whom",meaning:"นักเคลื่อนไหว ซึ่งไม่มีใครคาดคิดว่าจะได้รับการตอบสนองที่รวดเร็วเช่นนี้ ต่างเฉลิมฉลองการยกเลิกนโยบายนั้น",options:["whom", "which", "who", "whose"]},
+  {dialogue:"The exact figure __________ the government has never disclosed is the true cost of the project.",answer:"which",meaning:"ตัวเลขที่แน่ชัดที่รัฐบาลไม่เคยเปิดเผยคือค่าใช้จ่ายที่แท้จริงของโครงการ",options:["which", "whom", "where", "why"]},
+  {dialogue:"Choose the grammatically correct sentence.",answer:"The teacher, whose class I enjoyed the most, retired this year.",meaning:"ครูคนนี้ ซึ่งฉันชอบชั้นเรียนของเขามากที่สุด เกษียณอายุในปีนี้",options:["The teacher, whose class I enjoyed the most, retired this year.", "The teacher, who class I enjoyed the most, retired this year.", "The teacher, which class I enjoyed the most, retired this year.", "The teacher, whom class I enjoyed the most, retired this year."]},
+  {dialogue:"The organization, funding for __________ has been cut repeatedly, still manages to help thousands.",answer:"which",meaning:"องค์กรนี้ ซึ่งเงินทุนถูกตัดซ้ำแล้วซ้ำเล่า ก็ยังคงสามารถช่วยเหลือผู้คนได้หลายพันคน",options:["which", "where", "whom", "whose"]},
+  {dialogue:"The exact village __________ the ancient ruins were discovered has become a tourist attraction.",answer:"where",meaning:"หมู่บ้านที่แน่ชัดที่ซากปรักหักพังโบราณถูกค้นพบได้กลายเป็นแหล่งท่องเที่ยว",options:["which", "where", "when", "why"]},
+  {dialogue:"The board, a third of __________ resigned in protest, is now facing a leadership crisis.",answer:"whom",meaning:"คณะกรรมการ ซึ่งหนึ่งในสามลาออกเพื่อประท้วง กำลังเผชิญกับวิกฤตด้านผู้นำ",options:["whom", "which", "who", "whose"]},
+  {dialogue:"Reduce: \"The employees who were promoted last year received a substantial raise.\"",answer:"The employees promoted last year received a substantial raise.",meaning:"พนักงานที่ได้รับการเลื่อนตำแหน่งเมื่อปีที่แล้วได้รับเงินขึ้นเงินเดือนจำนวนมาก",options:["The employees promoting last year received a substantial raise.", "The employees promoted last year received a substantial raise.", "The employees, promote last year, received a substantial raise.", "The employees to promote last year received a substantial raise."]},
+  {dialogue:"The exact percentage by __________ inflation rose last quarter surprised even economists.",answer:"which",meaning:"เปอร์เซ็นต์ที่แน่ชัดที่อัตราเงินเฟ้อเพิ่มขึ้นในไตรมาสที่แล้วทำให้แม้แต่นักเศรษฐศาสตร์ยังประหลาดใจ",options:["which", "where", "whom", "whose"]},
+];
+
+/* =====================================================
    GAME STATE
 ===================================================== */
 
@@ -1469,6 +1679,16 @@ function startGame(selectedLevel){
         }
       });
     }
+  }else if(level===4){
+    questions=shuffle(conditionalQuestions).map(question=>({
+      ...question,
+      options:shuffle(question.options)
+    }));
+  }else if(level===5){
+    questions=shuffle(relativeQuestions).map(question=>({
+      ...question,
+      options:shuffle(question.options)
+    }));
   }else{
     questions=shuffle(vocabulary);
   }
@@ -1476,15 +1696,18 @@ function startGame(selectedLevel){
   $("gameLabel").textContent=
     level===1 ? "LEVEL 01 • WORD → MEANING":
     level===2 ? "LEVEL 02 • MEANING → WORD":
-    "LEVEL 03 • CONVERSATION CHALLENGE";
+    level===3 ? "LEVEL 03 • CONVERSATION CHALLENGE":
+    level===4 ? "LEVEL 04 • CONDITIONAL SENTENCES":
+    "LEVEL 05 • RELATIVE CLAUSE";
 
   showScreen("gameScreen");
   renderQuestion();
 
   toast(
-    level===3
-      ?"เติมคำจากบทสนทนาให้ถูกต้อง"
-      :"เลือกคำตอบที่ถูกต้อง",
+    level===3 ? "เติมคำจากบทสนทนาให้ถูกต้อง":
+    level===4 ? "เลือกคำตอบที่ถูกต้องตามหลัก Conditional Sentences":
+    level===5 ? "เลือกคำตอบที่ถูกต้องตามหลัก Relative Clause":
+    "เลือกคำตอบที่ถูกต้อง",
     `เริ่ม Level ${level}`,
     "⚡"
   );
@@ -1496,6 +1719,7 @@ function renderQuestion(){
 
   const item=questions[current];
   const total=level===3?120:questions.length;
+  const isChallengeLevel=level===3||level===4||level===5;
 
   $("questionNumber").textContent=current+1;
   $("counter").textContent=`Question ${current+1} / ${total}`;
@@ -1510,9 +1734,9 @@ function renderQuestion(){
   $("feedback").innerHTML="";
   $("nextButton").classList.remove("show");
 
-  if(level===3){
+  if(isChallengeLevel){
     renderConversationQuestion(item);
-    startTimer(35);
+    startTimer(level===3?35:30);
   }else{
     renderNormalQuestion(item);
     startTimer(20);
@@ -1520,10 +1744,13 @@ function renderQuestion(){
 }
 
 function renderConversationQuestion(item){
-  $("conversationTag").textContent="CONVERSATION CHALLENGE";
+  $("conversationTag").textContent=
+    level===4 ? "CONDITIONAL SENTENCES":
+    level===5 ? "RELATIVE CLAUSE":
+    "CONVERSATION CHALLENGE";
 
   let dialogue=item.dialogue.replace(
-    "__________",
+    /_{3,}/,
     `<span class="blank">__________</span>`
   );
 
@@ -1679,12 +1906,12 @@ function checkAnswer(button,answer,correctAnswer,item,isTimeout=false){
 function nextQuestion(){
   current++;
 
-  if(level===3 && current>=120){
+  if((level===3||level===4||level===5) && current>=questions.length){
     finishGame();
     return;
   }
 
-  if(level!==3 && current>=questions.length){
+  if(level<3 && current>=questions.length){
     current=0;
     questions=shuffle(vocabulary);
   }
@@ -1704,7 +1931,7 @@ function finishGame(){
 
   $("finalScore").textContent=score;
   $("finalCorrect").textContent=correct;
-  $("finalTotal").textContent=level===3?120:current+1;
+  $("finalTotal").textContent=(level===3||level===4||level===5)?questions.length:current+1;
 
   showScreen("resultScreen");
 }
@@ -1746,7 +1973,7 @@ document.addEventListener("keydown",event=>{
 
 window.addEventListener("load",()=>{
   setTimeout(()=>{
-    toast("บทสนทนา 120 ข้อพร้อมให้คุณฝึกแล้ว","ยินดีต้อนรับ","⚡");
+    toast("อัปเดตใหม่! เพิ่มโหมด Conditional และ Relative Clause 180 ข้อ","ยินดีต้อนรับ","⚡");
   },700);
 });
 </script>
