@@ -1207,6 +1207,37 @@ body::after{
     </button>
   </div>
 
+  <h2 class="section-heading" style="margin-top:50px">🎧 ภาษาอังกฤษฟัง-พูด (Listening &amp; Speaking)</h2>
+
+  <p style="color:var(--muted);max-width:680px;margin:-10px 0 20px;line-height:1.8">
+    ฝึกคำศัพท์จากหนังสือ Fast Track Level 9 และ Accelerate 6 (บทสนทนาในชีวิตประจำวัน,
+    การพูดในสถานการณ์ต่าง ๆ, เมืองต่าง ๆ ทั่วโลก, การพูดอย่างมั่นใจ และภัยพิบัติทางธรรมชาติ)
+    แบ่งเป็น 3 Level ตามความยาก
+  </p>
+
+  <div class="mode-grid">
+    <div class="mode glass" onclick="startLS(1)">
+      <div class="mode-icon">💬</div>
+      <div class="mode-id">LS LEVEL 01</div>
+      <h3>บทสนทนาในชีวิตประจำวัน</h3>
+      <p>คำศัพท์จาก Conversations with friends, Speaking tests, Room service, Everyday conversations (35 คำ)</p>
+    </div>
+
+    <div class="mode glass" onclick="startLS(2)">
+      <div class="mode-icon">🏙️</div>
+      <div class="mode-id">LS LEVEL 02</div>
+      <h3>เมืองต่าง ๆ ทั่วโลก &amp; พูดอย่างมั่นใจ</h3>
+      <p>คำศัพท์จาก World cities, Speaking with confidence (9 คำ)</p>
+    </div>
+
+    <div class="mode glass" onclick="startLS(3)">
+      <div class="mode-icon">🦠</div>
+      <div class="mode-id">LS LEVEL 03</div>
+      <h3>ภัยพิบัติทางธรรมชาติ</h3>
+      <p>คำศัพท์จาก A natural disaster, Learning more about a natural disaster (12 คำ)</p>
+    </div>
+  </div>
+
 </section>
 
 <section id="gameScreen" class="screen">
@@ -1444,6 +1475,92 @@ const vocabulary = [
   word:item[0],
   meaning:item[1]
 }));
+
+/* =====================================================
+   LISTENING & SPEAKING VOCABULARY
+   (Fast Track Level 9 + Accelerate 6 : Level 6)
+===================================================== */
+
+const lsLevels = {
+  1:{
+    title:"บทสนทนาในชีวิตประจำวัน",
+    source:"Conversations with friends, Practising speaking tests, Ordering room service, Everyday conversations",
+    words:[
+      ["sting","ต่อย (ทำให้เจ็บด้วยพิษ)"],
+      ["prank","การเล่นพิเรนทร์ / แกล้งกัน"],
+      ["argue","โต้เถียง, ทะเลาะ"],
+      ["luxury","ความหรูหรา, สิ่งฟุ่มเฟือย"],
+      ["profit","กำไร"],
+      ["operation","การผ่าตัด"],
+      ["victim","เหยื่อ, ผู้ประสบเคราะห์ร้าย"],
+      ["white lie","คำโกหกเล็กน้อยที่ไม่ทำร้ายใคร"],
+      ["connect","เชื่อมโยง, เชื่อมต่อ"],
+      ["emphasize","เน้นย้ำ"],
+      ["terrified","หวาดกลัวมาก"],
+      ["frustrated","หงุดหงิด, คับข้องใจ"],
+      ["sequence","ลำดับเหตุการณ์"],
+      ["intonation","การขึ้นลงของน้ำเสียง"],
+      ["narrative","การเล่าเรื่อง, เรื่องราว"],
+      ["coherent","เชื่อมโยงเป็นเหตุเป็นผล เข้าใจง่าย"],
+      ["spare ribs","ซี่โครงหมูย่าง"],
+      ["off the menu","หมดเมนู ไม่มีแล้ว"],
+      ["lasagna","ลาซานญ่า"],
+      ["smoothie","สมูทตี้"],
+      ["altogether","รวมทั้งหมด"],
+      ["charge","เรียกเก็บเงิน, คิดค่าใช้จ่าย"],
+      ["starving","หิวจัด"],
+      ["tough","ยาก, ลำบาก"],
+      ["raw","ดิบ"],
+      ["obligation","พันธะหน้าที่ (สิ่งที่ต้องทำ)"],
+      ["foodie","คนที่ชอบและรู้เรื่องอาหารเป็นอย่างดี"],
+      ["practical","การสอบภาคปฏิบัติ"],
+      ["panel","คณะกรรมการ"],
+      ["loaf","ขนมปังหนึ่งก้อน"],
+      ["pastry","แป้งขนมอบ, เพสตรี้"],
+      ["order","สั่ง (อาหาร)"],
+      ["delicious","อร่อย"],
+      ["pay","จ่ายเงิน"],
+      ["meal","มื้ออาหาร"]
+    ]
+  },
+  2:{
+    title:"เมืองต่าง ๆ ทั่วโลก & พูดอย่างมั่นใจ",
+    source:"World cities, Speaking with confidence",
+    words:[
+      ["alleyway","ตรอกซอยแคบ"],
+      ["observatory","หอดูดาว"],
+      ["grub","อาหาร (คำไม่เป็นทางการ)"],
+      ["cellar","ห้องใต้ดิน"],
+      ["cottage","กระท่อมหลังเล็กในชนบท"],
+      ["howl","เสียงหอนของสุนัขหรือหมาป่า"],
+      ["skeleton","โครงกระดูก"],
+      ["rubbish","แย่มาก / ไร้สาระ (ภาษาพูด)"],
+      ["vampire","แวมไพร์"]
+    ]
+  },
+  3:{
+    title:"ภัยพิบัติทางธรรมชาติ",
+    source:"A natural disaster, Learning more about a natural disaster",
+    words:[
+      ["outbreak","การระบาดของโรค"],
+      ["infectious","ติดต่อได้ง่าย"],
+      ["airborne","แพร่กระจายทางอากาศ"],
+      ["symptoms","อาการของโรค"],
+      ["body fluids","ของเหลวในร่างกาย"],
+      ["quarantine","การกักกันโรค"],
+      ["rodents","สัตว์ฟันแทะ"],
+      ["plague","กาฬโรค / โรคระบาดร้ายแรง"],
+      ["pandemic","โรคระบาดทั่วโลก"],
+      ["diseases","โรคภัยไข้เจ็บ"],
+      ["spread","แพร่กระจาย"],
+      ["contact","การสัมผัส / การติดต่อ"]
+    ]
+  }
+};
+
+Object.values(lsLevels).forEach(levelData=>{
+  levelData.words=levelData.words.map(item=>({word:item[0],meaning:item[1]}));
+});
 
 /* =====================================================
    CONVERSATION QUESTION BANK
@@ -2068,6 +2185,9 @@ function renderQuestion(){
   }else if(isChallengeLevel){
     renderConversationQuestion(item);
     startTimer(level===3?35:30);
+  }else if(level>=7 && level<=9){
+    renderLSQuestion(item);
+    startTimer(20);
   }else{
     renderNormalQuestion(item);
     startTimer(20);
@@ -2134,6 +2254,85 @@ function renderNormalQuestion(item){
   `).join("");
 
   addOptionEvents(item,correctAnswer);
+}
+
+/* =====================================================
+   LISTENING & SPEAKING MODE
+   level 7 = LS Level 1, level 8 = LS Level 2, level 9 = LS Level 3
+===================================================== */
+
+function buildLSQuestions(words){
+  const pool=[];
+
+  words.forEach(item=>{
+    const wrongMeanings=shuffle(
+      words.filter(w=>w.word!==item.word).map(w=>w.meaning)
+    ).slice(0,3);
+
+    pool.push({
+      prompt:item.word,
+      word:item.word,
+      meaning:item.meaning,
+      options:shuffle([item.meaning,...wrongMeanings]),
+      answer:item.meaning,
+      _qtype:"ls-w2m"
+    });
+
+    const wrongWords=shuffle(
+      words.filter(w=>w.word!==item.word).map(w=>w.word)
+    ).slice(0,3);
+
+    pool.push({
+      prompt:item.meaning,
+      word:item.word,
+      meaning:item.meaning,
+      options:shuffle([item.word,...wrongWords]),
+      answer:item.word,
+      _qtype:"ls-m2w"
+    });
+  });
+
+  return shuffle(pool);
+}
+
+function startLS(n){
+  const data=lsLevels[n];
+  if(!data)return;
+
+  level=6+n;
+  current=0;
+  score=0;
+  combo=0;
+  correct=0;
+  answered=false;
+  questions=buildLSQuestions(data.words);
+
+  $("gameLabel").textContent=`LS LEVEL 0${n} • ${data.title}`;
+
+  showScreen("gameScreen");
+  renderQuestion();
+
+  toast(
+    "เลือกคำตอบที่ถูกต้อง ฝึกฟัง-พูดจากบทสนทนาจริง",
+    `เริ่ม Listening & Speaking Level ${n}`,
+    "🎧"
+  );
+}
+
+function renderLSQuestion(item){
+  $("conversationTag").textContent=
+    item._qtype==="ls-w2m" ? "WORD → MEANING" : "MEANING → WORD";
+
+  $("questionText").textContent=item.prompt;
+
+  $("options").innerHTML=item.options.map((option,index)=>`
+    <button class="option" data-answer="${escapeHTML(option)}">
+      <span class="option-letter">${String.fromCharCode(65+index)}</span>
+      <span>${escapeHTML(option)}</span>
+    </button>
+  `).join("");
+
+  addOptionEvents(item,item.answer);
 }
 
 /* =====================================================
@@ -2205,6 +2404,45 @@ function buildRevengeQuestions(){
           _category:"vocab",
           _label:info.label
         });
+      }
+    }else if(info.category==="ls"){
+      const word=tagId.replace("ls::","");
+      const allLSWords=Object.values(lsLevels).flatMap(l=>l.words);
+      const lsItem=allLSWords.find(v=>v.word===word);
+      if(!lsItem)return;
+
+      for(let i=0;i<reps;i++){
+        if(i%2===0){
+          const wrong=shuffle(
+            allLSWords.filter(v=>v.word!==word).map(v=>v.meaning)
+          ).slice(0,3);
+
+          pool.push({
+            word:lsItem.word,
+            meaning:lsItem.meaning,
+            options:shuffle([lsItem.meaning,...wrong]),
+            answer:lsItem.meaning,
+            _qtype:"vocab-w2m",
+            _tagId:tagId,
+            _category:"ls",
+            _label:info.label
+          });
+        }else{
+          const wrong=shuffle(
+            allLSWords.filter(v=>v.word!==word).map(v=>v.word)
+          ).slice(0,3);
+
+          pool.push({
+            word:lsItem.word,
+            meaning:lsItem.meaning,
+            options:shuffle([lsItem.word,...wrong]),
+            answer:lsItem.word,
+            _qtype:"vocab-m2w",
+            _tagId:tagId,
+            _category:"ls",
+            _label:info.label
+          });
+        }
       }
     }else if(info.category==="conditional"||info.category==="relative"){
       const bank=info.category==="conditional" ? conditionalQuestions : relativeQuestions;
@@ -2340,6 +2578,10 @@ function getMistakeInfo(item){
     return {tagId:`rel::${item.tag}`,category:"relative",label:item.tag};
   }
 
+  if(level>=7 && level<=9){
+    return {tagId:`ls::${item.word}`,category:"ls",label:`${item.word} — ${item.meaning}`};
+  }
+
   return null;
 }
 
@@ -2416,7 +2658,7 @@ function checkAnswer(button,answer,correctAnswer,item,isTimeout=false){
 function nextQuestion(){
   current++;
 
-  if((level===3||level===4||level===5||level===6) && current>=questions.length){
+  if((level===3||level===4||level===5||level===6||(level>=7&&level<=9)) && current>=questions.length){
     finishGame();
     return;
   }
@@ -2441,7 +2683,7 @@ function finishGame(){
 
   $("finalScore").textContent=score;
   $("finalCorrect").textContent=correct;
-  $("finalTotal").textContent=(level===3||level===4||level===5||level===6)?questions.length:current+1;
+  $("finalTotal").textContent=(level===3||level===4||level===5||level===6||(level>=7&&level<=9))?questions.length:current+1;
 
   if(level===6){
     toast("ล้างแค้นสำเร็จ! กลับไปดูจุดอ่อนที่เหลือได้ที่หน้าหลัก","REVENGE COMPLETE","⚔️");
